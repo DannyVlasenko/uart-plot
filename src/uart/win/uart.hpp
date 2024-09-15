@@ -62,6 +62,7 @@ namespace uart
 		[[nodiscard]] PortState getState() const;
 		void setState(const PortState& state) const;
 	private:
+		std::string mName;
 		std::unique_ptr<void, void(*)(void*)> mPortHandle;
 	};
 
