@@ -4,7 +4,7 @@
 
 namespace 
 {
-	void ComboBox(const char *text, const std::span<const std::string_view>& elements, size_t& selected)
+	void ComboBox(const char *text, const std::span<const std::string>& elements, size_t& selected)
 	{
 		if (ImGui::BeginCombo(text, elements[selected].data()))
 		{

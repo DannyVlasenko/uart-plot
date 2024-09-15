@@ -5,7 +5,8 @@
 #include "backends/imgui_impl_opengl3.h"
 #include "implot.h"
 
-views::AppUI::AppUI(const glfw::Window& window)
+views::AppUI::AppUI(const glfw::Window& window, const IMainViewModel& viewModel):
+	mViewModel(viewModel)
 {
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
@@ -25,18 +26,13 @@ views::AppUI::~AppUI()
 	ImGui::DestroyContext();
 }
 
-void views::AppUI::add_view(std::unique_ptr<IView> view)
-{
-	mViews.push_back(std::move(view));
-}
-
 void views::AppUI::render() const
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
-	ImGui::ShowDemoWindow();
-	for (const auto& view : mViews)
+	ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
+	for (const auto& view : mViewModel)
 	{
 		view->render();
 	}

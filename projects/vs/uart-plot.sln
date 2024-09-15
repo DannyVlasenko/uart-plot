@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "views", "views\views.vcxpro
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uart", "uart\uart.vcxproj", "{1858B143-8E54-45F6-9E59-26E1A3A81422}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logic", "logic\logic.vcxproj", "{B24BE752-B6FF-4F35-9963-122A4BB8DB38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,6 +41,10 @@ Global
 		{1858B143-8E54-45F6-9E59-26E1A3A81422}.Debug|x64.Build.0 = Debug|x64
 		{1858B143-8E54-45F6-9E59-26E1A3A81422}.Release|x64.ActiveCfg = Release|x64
 		{1858B143-8E54-45F6-9E59-26E1A3A81422}.Release|x64.Build.0 = Release|x64
+		{B24BE752-B6FF-4F35-9963-122A4BB8DB38}.Debug|x64.ActiveCfg = Debug|x64
+		{B24BE752-B6FF-4F35-9963-122A4BB8DB38}.Debug|x64.Build.0 = Debug|x64
+		{B24BE752-B6FF-4F35-9963-122A4BB8DB38}.Release|x64.ActiveCfg = Release|x64
+		{B24BE752-B6FF-4F35-9963-122A4BB8DB38}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

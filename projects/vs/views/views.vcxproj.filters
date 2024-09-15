@@ -33,6 +33,7 @@
     <ClCompile Include="..\..\..\third-parties\implot\implot_items.cpp">
       <Filter>implot</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\src\views\app_menu_bar_view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\views\app_ui.hpp" />
@@ -68,6 +69,7 @@
     <ClInclude Include="..\..\..\third-parties\implot\implot_internal.h">
       <Filter>implot</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\views\app_menu_bar_view.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">
