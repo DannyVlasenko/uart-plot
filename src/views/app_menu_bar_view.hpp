@@ -2,11 +2,31 @@
 
 #include "view.hpp"
 
+#include <string>
+#include <span>
+
 namespace views
 {
+	class IAppMenuBarViewModel
+	{
+	public:
+		virtual ~IAppMenuBarViewModel() = default;
+		virtual bool portConfigurationChecked() = 0;
+		virtual void onPortConfigurationClicked() = 0;
+		virtual void onNewSignalViewClicked() = 0;
+		virtual void onNewSpectrumViewClicked() = 0;
+	};
+
 	class AppMenuBarView : public IView
 	{
 	public:
-		void render() override;
+		explicit AppMenuBarView(IAppMenuBarViewModel& viewModel):
+			mViewModel(viewModel)
+		{}
+
+		void render() const override;
+
+	private:
+		IAppMenuBarViewModel& mViewModel;
 	};
 }

@@ -59,7 +59,10 @@ namespace uart
 	{
 	public:
 		explicit Port(const std::string& name);
-		[[nodiscard]] const std::string& name() const noexcept;
+		[[nodiscard]] const std::string& name() const noexcept
+		{
+			return mName;
+		}
 		[[nodiscard]] PortState getState() const;
 		void setState(const PortState& state) const;
 	private:
@@ -73,9 +76,5 @@ namespace uart
 		std::string Description;
 	};
 
-	class PortEnumerator
-	{
-	public:
-		std::vector<PortDescription> enumeratePorts();
-	};
+	std::vector<PortDescription> enumeratePorts();
 }

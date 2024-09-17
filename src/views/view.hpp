@@ -7,26 +7,7 @@ namespace views
 	{
 	public:
 		virtual ~IView() = default;
-		virtual void render() = 0;
-	};
-
-	class IViewIterator
-	{
-	public:
-		explicit IViewIterator(IView* view):
-			mView(view)
-		{}
-		IViewIterator& operator++() {
-
-		}
-		const IView& operator*() const;
-		friend void swap(IViewIterator& lhs, IViewIterator& rhs) noexcept {
-			std::swap(lhs.mView, rhs.mView);
-		}
-		friend bool operator==(const IViewIterator&, const IViewIterator&);
-		friend bool operator!=(const IViewIterator&, const IViewIterator&);
-	private:
-		IView* mView;
+		virtual void render() const = 0;
 	};
 }
 

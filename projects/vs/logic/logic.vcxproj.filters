@@ -12,13 +12,28 @@
     <ClInclude Include="..\..\..\src\logic\models\opened_ports_model.hpp">
       <Filter>models</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\logic\viewmodels\port_selection_viewmodel.hpp">
+    <ClInclude Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.hpp">
+      <Filter>viewmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\logic\viewmodels\dock_area_viewmodel.hpp">
+      <Filter>viewmodels</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\src\logic\viewmodels\app_menu_bar_viewmodel.hpp">
       <Filter>viewmodels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\logic\viewmodels\port_selection_viewmodel.cpp">
+    <ClCompile Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.cpp">
       <Filter>viewmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\logic\viewmodels\dock_area_viewmodel.cpp">
+      <Filter>viewmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\logic\viewmodels\app_menu_bar_viewmodel.cpp">
+      <Filter>viewmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\logic\models\opened_ports_model.cpp">
+      <Filter>models</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

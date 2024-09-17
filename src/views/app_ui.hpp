@@ -1,37 +1,41 @@
 #ifndef VIEWS_APP_UI_HPP
 #define VIEWS_APP_UI_HPP
 
-#include <vector>
-#include <memory>
+#include <span>
 
 #include "view.hpp"
-#include "glfwrap/window.hpp"
+#include "app_menu_bar_view.hpp"
+
+namespace glfw
+{
+	class Window;
+}
 
 namespace views
 {
-	class IMainViewModel 
+	class IDockAreaViewModel 
 	{
 	public:
 
-		virtual ~IMainViewModel() = default;
-		virtual IViewIterator begin() const = 0;
-		virtual IViewIterator end() const = 0;
+		virtual ~IDockAreaViewModel() = default;
+		virtual std::span<const IView* const> views() const = 0;
 	};
 
 	class AppUI
 	{
 	public:
-		AppUI(const glfw::Window& window, const IMainViewModel& viewModel);
+		AppUI(const glfw::Window& window, IAppMenuBarViewModel& menuBarModel, const IDockAreaViewModel& dockAreaModel);
 		AppUI(const AppUI& other) = delete;
 		AppUI(AppUI&& other) noexcept = delete;
 		AppUI& operator=(const AppUI& other) = delete;
 		AppUI& operator=(AppUI&& other) noexcept = delete;
 		~AppUI();
 
-		void render() const;
+		void render();
 
 	private:
-		const IMainViewModel& mViewModel;
+		AppMenuBarView mMenuBarView;
+		const IDockAreaViewModel& mDockViewModel;
 	};
 }
 #endif // VIEWS_APP_UI_HPP

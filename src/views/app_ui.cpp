@@ -4,9 +4,11 @@
 #include "backends/imgui_impl_glfw.h"
 #include "backends/imgui_impl_opengl3.h"
 #include "implot.h"
+#include "glfwrap/window.hpp"
 
-views::AppUI::AppUI(const glfw::Window& window, const IMainViewModel& viewModel):
-	mViewModel(viewModel)
+views::AppUI::AppUI(const glfw::Window& window, IAppMenuBarViewModel& menuBarModel, const IDockAreaViewModel& dockAreaModel):
+	mMenuBarView(menuBarModel),
+	mDockViewModel(dockAreaModel)
 {
 	ImGui::CreateContext();
 	ImGui::StyleColorsDark();
@@ -26,13 +28,14 @@ views::AppUI::~AppUI()
 	ImGui::DestroyContext();
 }
 
-void views::AppUI::render() const
+void views::AppUI::render()
 {
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
 	ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
-	for (const auto& view : mViewModel)
+	mMenuBarView.render();
+	for (const auto * view : mDockViewModel.views())
 	{
 		view->render();
 	}

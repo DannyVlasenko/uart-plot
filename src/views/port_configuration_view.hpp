@@ -8,13 +8,17 @@
 
 namespace views
 {
-	class IPortSelectionViewModel
+	class IPortConfigurationViewModel
 	{
 	public:
-		virtual ~IPortSelectionViewModel() = default;
-
-		virtual std::span<const std::string> portsDescriptions() const noexcept = 0;
-		virtual size_t& selectedPort() noexcept = 0;
+		virtual ~IPortConfigurationViewModel() = default;
+		virtual void onPortRefreshButtonClicked() = 0;
+		virtual std::span<const std::string> availablePorts() const noexcept = 0;
+		virtual size_t& selectedAvailablePort() noexcept = 0;
+		virtual bool portOpenEnabled() noexcept = 0;
+		virtual void onPortOpenButtonClicked() = 0;
+		virtual std::span<const std::string> openedPorts() const noexcept = 0;
+		virtual size_t& selectedOpenedPort() noexcept = 0;
 		virtual bool portControlsEnabled() noexcept = 0;
 		virtual std::span<const std::string> baudRatesList() const noexcept = 0;
 		virtual size_t& selectedBaudRate() noexcept = 0;
@@ -26,21 +30,20 @@ namespace views
 		virtual size_t& selectedStopBits() noexcept = 0;
 		virtual std::span<const std::string> flowControlsList() const noexcept = 0;
 		virtual size_t& selectedFlowControl() noexcept = 0;
-		virtual const char* portOperationButtonText() const noexcept = 0;
-		virtual void onPortOperationButtonClicked() noexcept = 0;
+		virtual void onPortCloseButtonClicked() = 0;
 	};
 
-	class PortSelectionView final : public IView
+	class PortConfigurationView final : public IView
 	{
 	public:
-		PortSelectionView(IPortSelectionViewModel& view_model) :
+		PortConfigurationView(IPortConfigurationViewModel& view_model) :
 			mViewModel(view_model)
 		{}
 
-		void render() override;
+		void render() const override;
 
 	private:
-		IPortSelectionViewModel& mViewModel;
+		IPortConfigurationViewModel& mViewModel;
 	};
 }
 #endif // VIEWS_GLOBAL_LIGHT_VIEW_HPP

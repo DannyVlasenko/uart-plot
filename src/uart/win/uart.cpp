@@ -105,6 +105,8 @@ namespace
 				}
 				if ((dwType == REG_SZ) || (dwType == REG_EXPAND_SZ))
 				{
+					subKey.Name.erase(std::ranges::find(subKey.Name, '\0'), subKey.Name.end());
+					subKey.Value.erase(std::ranges::find(subKey.Value, '\0'), subKey.Value.end());
 					subKeys.push_back(subKey);
 				}
 				++dwIndex;
@@ -155,10 +157,10 @@ void uart::Port::setState(const PortState& state) const
 	}
 }
 
-std::vector<uart::PortDescription> uart::PortEnumerator::enumeratePorts()
+std::vector<uart::PortDescription> uart::enumeratePorts()
 {
 	RegKey serialCommKey{ HKEY_LOCAL_MACHINE, "HARDWARE\\DEVICEMAP\\SERIALCOMM" };
-	std::vector<uart::PortDescription> ports;
+	std::vector<PortDescription> ports;
 	for (const auto& [keyName, keyValue] : serialCommKey.enumerateStringSubKeys()) {
 		ports.push_back({ .PortName = keyValue, .Description = keyName });
 	}

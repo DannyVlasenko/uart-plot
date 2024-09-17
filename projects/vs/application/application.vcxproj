@@ -21,6 +21,9 @@
     <ProjectReference Include="..\glfwrap\glfwrap.vcxproj">
       <Project>{f0b5471b-8d93-4f93-9a04-7fc878eb9ba9}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\logic\logic.vcxproj">
+      <Project>{b24be752-b6ff-4f35-9963-122a4bb8db38}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\opengl\opengl.vcxproj">
       <Project>{92731417-673f-47ec-90d3-900cee12c8d9}</Project>
     </ProjectReference>
@@ -67,7 +70,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\..\src;..\..\..\third-parties\glfw-3.4\include;..\..\..\third-parties\glm;..\..\..\third-parties\glew-2.1.0\include;..\..\..\third-parties\imgui;..\..\..\third-parties\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\src;..\..\..\src\logic;..\..\..\src\uart\win;..\..\..\third-parties\glfw-3.4\include;..\..\..\third-parties\glm;..\..\..\third-parties\glew-2.1.0\include;..\..\..\third-parties\imgui;..\..\..\third-parties\implot</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -90,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>..\..\..\src;..\..\..\third-parties\glfw-3.4\include;..\..\..\third-parties\glm;..\..\..\third-parties\glew-2.1.0\include;..\..\..\third-parties\imgui;..\..\..\third-parties\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\src;..\..\..\src\logic;..\..\..\src\uart\win;..\..\..\third-parties\glfw-3.4\include;..\..\..\third-parties\glm;..\..\..\third-parties\glew-2.1.0\include;..\..\..\third-parties\imgui;..\..\..\third-parties\implot</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeaderFile />

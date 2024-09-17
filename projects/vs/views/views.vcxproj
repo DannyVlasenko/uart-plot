@@ -154,7 +154,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\views\app_menu_bar_view.cpp" />
     <ClCompile Include="..\..\..\src\views\app_ui.cpp" />
-    <ClCompile Include="..\..\..\src\views\port_selection_view.cpp" />
+    <ClCompile Include="..\..\..\src\views\port_configuration_view.cpp" />
     <ClCompile Include="..\..\..\third-parties\imgui\backends\imgui_impl_glfw.cpp" />
     <ClCompile Include="..\..\..\third-parties\imgui\backends\imgui_impl_opengl3.cpp" />
     <ClCompile Include="..\..\..\third-parties\imgui\imgui.cpp" />
@@ -169,7 +169,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\views\app_menu_bar_view.hpp" />
     <ClInclude Include="..\..\..\src\views\app_ui.hpp" />
-    <ClInclude Include="..\..\..\src\views\port_selection_view.hpp" />
+    <ClInclude Include="..\..\..\src\views\port_configuration_view.hpp" />
     <ClInclude Include="..\..\..\src\views\view.hpp" />
     <ClInclude Include="..\..\..\third-parties\imgui\backends\imgui_impl_glfw.h" />
     <ClInclude Include="..\..\..\third-parties\imgui\backends\imgui_impl_opengl3.h" />
