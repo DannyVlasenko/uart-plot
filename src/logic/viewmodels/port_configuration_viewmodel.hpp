@@ -12,9 +12,7 @@ namespace logic
 	class PortConfigurationViewModel : public views::IPortConfigurationViewModel
 	{
 	public:
-		explicit PortConfigurationViewModel(OpenedPortsModel& portsModel):
-			mPortsModel(portsModel)
-		{}
+		explicit PortConfigurationViewModel(OpenedPortsModel& portsModel);
 
 		void onPortRefreshButtonClicked() override;
 
@@ -54,14 +52,9 @@ namespace logic
 			return mSelectedBaudRate;
 		}
 
-		std::span<const std::string> dataBitsList() const noexcept override
+		int& dataBits() noexcept override
 		{
 			return mDataBits;
-		}
-
-		size_t& selectedDataBits() noexcept override
-		{
-			return mSelectedDataBits;
 		}
 
 		std::span<const std::string> paritiesList() const noexcept override
@@ -84,17 +77,18 @@ namespace logic
 			return mSelectedStopBits;
 		}
 
-		std::span<const std::string> flowControlsList() const noexcept override
-		{
-			return mFlowControls;
-		}
-
-		size_t& selectedFlowControl() noexcept override
-		{
-			return mSelectedFlowControl;
-		}
-
 		void onPortCloseButtonClicked() override;
+
+		void onClearLogClicked() override;
+
+		[[nodiscard]] std::span<const views::PortLogEntry> portLogEntries() override
+		{
+			return mPortLogEntries;
+		}
+
+		void onReadParamsClicked() override;
+
+		void onWriteParamsClicked() override;
 
 	private:
 		OpenedPortsModel& mPortsModel;
@@ -103,17 +97,18 @@ namespace logic
 		size_t mSelectedAvailablePort{ 0 };
 		std::vector<std::string> mOpenedPortsNames;
 		size_t mSelectedOpenedPort{ 0 };
-		std::vector<std::string> mBaudRates;
-		size_t mSelectedBaudRate;
-		std::vector<std::string> mDataBits;
-		size_t mSelectedDataBits;
-		std::vector<std::string> mParities;
-		size_t mSelectedParity;
-		std::vector<std::string> mStopBits;
-		size_t mSelectedStopBits;
-		std::vector<std::string> mFlowControls;
-		size_t mSelectedFlowControl;
+		const std::vector<std::string> mBaudRates;
+		size_t mSelectedBaudRate{ 0 };
+		int mDataBits{ 0 };
+		const std::vector<std::string> mParities;
+		size_t mSelectedParity{ 0 };
+		const std::vector<std::string> mStopBits;
+		size_t mSelectedStopBits{ 0 };
+		std::vector<views::PortLogEntry> mPortLogEntries;
+
 		void updateAvailablePortList();
 		void updateOpenedPortList();
+		void readPortParams();
+		void writePortParams();
 	};
 }

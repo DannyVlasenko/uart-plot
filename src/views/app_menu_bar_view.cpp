@@ -7,14 +7,14 @@ void views::AppMenuBarView::render() const
     {
         if (ImGui::BeginMenu("View"))
         {
-            if (ImGui::MenuItem("Port Configuration Window", "CTRL+P", mViewModel.portConfigurationChecked())) {
+            if (ImGui::MenuItem("Port Configuration Window", nullptr, mViewModel.portConfigurationChecked())) {
                 mViewModel.onPortConfigurationClicked();
             }
             ImGui::Separator();
-            if (ImGui::MenuItem("Add Signal Plot", "CTRL+I")) {
+            if (ImGui::MenuItem("Add Signal Plot")) {
                 mViewModel.onNewSignalViewClicked();
             }
-            if (ImGui::MenuItem("Add Spectrum Plot", "CTRL+O")) {
+            if (ImGui::MenuItem("Add Spectrum Plot")) {
                 mViewModel.onNewSpectrumViewClicked();
             }
             ImGui::EndMenu();

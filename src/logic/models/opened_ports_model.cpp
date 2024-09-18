@@ -13,7 +13,7 @@ namespace logic
 	void OpenedPortsModel::closePort(const std::string& name)
 	{
 		if (!mPorts.contains(name)) {
-			throw std::runtime_error("There is no opened port " + name +".");
+			throw std::runtime_error("There is no opened port " + name + ".");
 		}
 		mPorts.erase(name);
 	}

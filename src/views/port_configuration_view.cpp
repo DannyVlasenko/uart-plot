@@ -65,17 +65,11 @@ namespace views
 		{
 			ImGui::EndDisabled();
 		}
-
-		ListBox("Opened ports", mViewModel.openedPorts(), mViewModel.selectedOpenedPort());
 		if (!mViewModel.portControlsEnabled())
 		{
 			ImGui::BeginDisabled();
 		}
-		ComboBox("Bits per second", mViewModel.baudRatesList(), mViewModel.selectedBaudRate());
-		ComboBox("Data bits", mViewModel.dataBitsList(), mViewModel.selectedDataBits());
-		ComboBox("Parity", mViewModel.paritiesList(), mViewModel.selectedParity());
-		ComboBox("Stop bits", mViewModel.stopBitsList(), mViewModel.selectedStopBits());
-		ComboBox("Flow control", mViewModel.flowControlsList(), mViewModel.selectedFlowControl());
+		ImGui::SameLine();
 		if (ImGui::Button("Close")) {
 			mViewModel.onPortCloseButtonClicked();
 		}
@@ -83,6 +77,37 @@ namespace views
 		{
 			ImGui::EndDisabled();
 		}
+		ListBox("Opened ports", mViewModel.openedPorts(), mViewModel.selectedOpenedPort());
+		if (!mViewModel.portControlsEnabled())
+		{
+			ImGui::BeginDisabled();
+		}
+		if (ImGui::Button("Read Params")) {
+			mViewModel.onReadParamsClicked();
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Write Params")) {
+			mViewModel.onWriteParamsClicked();
+		}
+		ComboBox("Bits per second", mViewModel.baudRatesList(), mViewModel.selectedBaudRate());
+		ImGui::DragInt("Data bits", &mViewModel.dataBits(), 1, 6, 9);
+		ComboBox("Parity", mViewModel.paritiesList(), mViewModel.selectedParity());
+		ComboBox("Stop bits", mViewModel.stopBitsList(), mViewModel.selectedStopBits());		
+		if (!mViewModel.portControlsEnabled())
+		{
+			ImGui::EndDisabled();
+		}
+		if (ImGui::Button("Clear Log"))
+		{
+			mViewModel.onClearLogClicked();
+		}
+		if (ImGui::BeginChild("Port Log", ImVec2(0, 0), ImGuiChildFlags_Borders, ImGuiWindowFlags_HorizontalScrollbar))
+		{
+			for (const auto& logEntry : mViewModel.portLogEntries()) {
+				ImGui::TextColored({ logEntry.Color.x, logEntry.Color.y,logEntry.Color.z,logEntry.Color.w }, logEntry.Text.c_str());
+			}
+		}
+		ImGui::EndChild();
 		ImGui::End();
 	}
 }

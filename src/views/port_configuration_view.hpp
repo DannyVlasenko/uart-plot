@@ -3,34 +3,42 @@
 
 #include <span>
 #include <string>
+#include <vec4.hpp>
 
 #include "view.hpp"
 
 namespace views
 {
+	struct PortLogEntry
+	{
+		glm::vec4 Color;
+		std::string Text;
+	};
+
 	class IPortConfigurationViewModel
 	{
 	public:
 		virtual ~IPortConfigurationViewModel() = default;
 		virtual void onPortRefreshButtonClicked() = 0;
-		virtual std::span<const std::string> availablePorts() const noexcept = 0;
-		virtual size_t& selectedAvailablePort() noexcept = 0;
-		virtual bool portOpenEnabled() noexcept = 0;
+		virtual [[nodiscard]] std::span<const std::string> availablePorts() const noexcept = 0;
+		virtual [[nodiscard]] size_t& selectedAvailablePort() noexcept = 0;
+		virtual [[nodiscard]] bool portOpenEnabled() noexcept = 0;
 		virtual void onPortOpenButtonClicked() = 0;
-		virtual std::span<const std::string> openedPorts() const noexcept = 0;
-		virtual size_t& selectedOpenedPort() noexcept = 0;
-		virtual bool portControlsEnabled() noexcept = 0;
-		virtual std::span<const std::string> baudRatesList() const noexcept = 0;
-		virtual size_t& selectedBaudRate() noexcept = 0;
-		virtual std::span<const std::string> dataBitsList() const noexcept = 0;
-		virtual size_t& selectedDataBits() noexcept = 0;
-		virtual std::span<const std::string> paritiesList() const noexcept = 0;
-		virtual size_t& selectedParity() noexcept = 0;
-		virtual std::span<const std::string> stopBitsList() const noexcept = 0;
-		virtual size_t& selectedStopBits() noexcept = 0;
-		virtual std::span<const std::string> flowControlsList() const noexcept = 0;
-		virtual size_t& selectedFlowControl() noexcept = 0;
+		virtual [[nodiscard]] std::span<const std::string> openedPorts() const noexcept = 0;
+		virtual [[nodiscard]] size_t& selectedOpenedPort() noexcept = 0;
+		virtual [[nodiscard]] bool portControlsEnabled() noexcept = 0;
+		virtual [[nodiscard]] std::span<const std::string> baudRatesList() const noexcept = 0;
+		virtual [[nodiscard]] size_t& selectedBaudRate() noexcept = 0;
+		virtual [[nodiscard]] int& dataBits() noexcept = 0;
+		virtual [[nodiscard]] std::span<const std::string> paritiesList() const noexcept = 0;
+		virtual [[nodiscard]] size_t& selectedParity() noexcept = 0;
+		virtual [[nodiscard]] std::span<const std::string> stopBitsList() const noexcept = 0;
+		virtual [[nodiscard]] size_t& selectedStopBits() noexcept = 0;
 		virtual void onPortCloseButtonClicked() = 0;
+		virtual void onClearLogClicked() = 0;
+		virtual [[nodiscard]] std::span<const PortLogEntry> portLogEntries() = 0;
+		virtual void onReadParamsClicked() = 0;
+		virtual void onWriteParamsClicked() = 0;
 	};
 
 	class PortConfigurationView final : public IView
