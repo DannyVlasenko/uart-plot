@@ -32,7 +32,7 @@ namespace uart_plot
 	{
 		logic::OpenedPortsModel portsModel;
 		logic::PortConfigurationViewModel portConfigVM{ portsModel };
-		logic::DockAreaViewModel dockVM{ portConfigVM };
+		logic::DockAreaViewModel dockVM{ portConfigVM, portsModel };
 		logic::AppMenuBarViewModel appMenuBarVM{ dockVM };
 		views::AppUI ui{ mMainWindow, appMenuBarVM, dockVM };
 

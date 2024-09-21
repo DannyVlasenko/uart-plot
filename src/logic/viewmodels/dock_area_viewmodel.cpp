@@ -1,7 +1,14 @@
 #include "dock_area_viewmodel.hpp"
 
+#include "viewmodels/port_configuration_viewmodel.hpp"
+
 namespace logic
 {
+	bool DockAreaViewModel::portConfigViewVisible() const noexcept
+	{
+		return mPortConfigView.has_value();
+	}
+
 	void DockAreaViewModel::switchPortConfigViewVisibility()
 	{
 		if (mPortConfigView.has_value()) {
@@ -15,6 +22,8 @@ namespace logic
 
 	void DockAreaViewModel::addSignalView()
 	{
+		mSignalViews.emplace_back();
+		updateViewList();
 	}
 
 	void DockAreaViewModel::addSpectrumView()
@@ -26,6 +35,9 @@ namespace logic
 		mViews.clear();
 		if (mPortConfigView.has_value()) {
 			mViews.push_back(&mPortConfigView.value());
+		}
+		for (const auto& signalView : mSignalViews) {
+			mViews.push_back(&signalView);
 		}
 	}
 }
