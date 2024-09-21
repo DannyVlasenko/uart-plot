@@ -128,33 +128,33 @@ namespace logic
 		updateAvailablePortList();
 	}
 
-	bool PortConfigurationViewModel::portOpenEnabled() noexcept
+	bool PortConfigurationViewModel::portOpenEnabled() const noexcept
 	{
-		return !mAvailablePortsDescriptions.empty() && mSelectedAvailablePort < mAvailablePortsDescriptions.size();
+		return mSelectedAvailablePort.has_value();
 	}
 
 	void PortConfigurationViewModel::onPortOpenButtonClicked()
 	{
 		try {
-			mPortsModel.openPort(mAvailablePortsNames.at(mSelectedAvailablePort));
+			mPortsModel.openPort(mAvailablePortsNames.at(*mSelectedAvailablePort));
 			updateOpenedPortList();
-			readPortParams();
+			updateAvailablePortList();
 		}
 		catch (uart::PortException& e) {
 			mPortLogEntries.emplace_back(ColorRed, e.what());
 		}
-		updateAvailablePortList();
 	}
 
-	bool PortConfigurationViewModel::portControlsEnabled() noexcept
+	bool PortConfigurationViewModel::portControlsEnabled() const noexcept
 	{
-		return !mOpenedPortsNames.empty() && mSelectedOpenedPort < mOpenedPortsNames.size();
+		return mSelectedOpenedPort.has_value();
 	}
 
 	void PortConfigurationViewModel::updateAvailablePortList()
 	{
 		mAvailablePortsDescriptions.clear();
 		mAvailablePortsNames.clear();
+		mSelectedAvailablePort.reset();
 		try {
 			const auto ports = uart::enumeratePorts();
 			for (const auto& port : ports)
@@ -164,6 +164,7 @@ namespace logic
 				}
 				mAvailablePortsDescriptions.push_back(port.Description + " (" + port.PortName + ")");
 				mAvailablePortsNames.push_back(port.PortName);
+				mSelectedAvailablePort = 0;
 			}
 		}
 		catch (uart::PortException& e) {
@@ -173,24 +174,27 @@ namespace logic
 
 	void PortConfigurationViewModel::updateOpenedPortList()
 	{
+		mSelectedOpenedPort.reset();
 		mOpenedPortsNames.clear();
 		for (const auto& port : mPortsModel.ports() | std::views::keys)
 		{
 			mOpenedPortsNames.push_back(port);
+			mSelectedOpenedPort = 0;
 		}
 	}
 
 	void PortConfigurationViewModel::readPortParams()
 	{
 		try {
-			const auto portParams = mPortsModel.ports().at(mOpenedPortsNames.at(mSelectedOpenedPort)).getState();
+			const auto portParams = mPortsModel.ports().at(mOpenedPortsNames.at(*mSelectedOpenedPort)).getState();
 			mSelectedBaudRate = std::ranges::find(mBaudRates, BaudRateToName.at(portParams.BaudRate)) - mBaudRates.begin();
 			mSelectedParity = std::ranges::find(mParities, ParityToName.at(portParams.Parity)) - mParities.begin();
 			mSelectedStopBits = std::ranges::find(mStopBits, StopBitsToName.at(portParams.StopBits)) - mStopBits.begin();
 			mDataBits = portParams.DataBits;
+			mPortLogEntries.emplace_back(ColorGreen, "Port " + mOpenedPortsNames.at(*mSelectedOpenedPort) + " params have been successfully read.");
 		}
 		catch (uart::PortException& e) {
-			mPortLogEntries.emplace_back(ColorRed, "Port " + mOpenedPortsNames.at(mSelectedOpenedPort) + " params read error: " + e.what());
+			mPortLogEntries.emplace_back(ColorRed, "Port " + mOpenedPortsNames.at(*mSelectedOpenedPort) + " params read error: " + e.what());
 		}
 	}
 
@@ -202,24 +206,24 @@ namespace logic
 			portParams.Parity = NameToParity.at(mParities.at(mSelectedParity));
 			portParams.StopBits = NameToStopBits.at(mStopBits.at(mSelectedStopBits));
 			portParams.DataBits = mDataBits;
-			mPortsModel.ports().at(mOpenedPortsNames.at(mSelectedOpenedPort)).setState(portParams);
-			mPortLogEntries.emplace_back(ColorGreen, "Port " + mOpenedPortsNames.at(mSelectedOpenedPort) + " params has been successfully written.");
+			mPortsModel.ports().at(mOpenedPortsNames.at(*mSelectedOpenedPort)).setState(portParams);
+			mPortLogEntries.emplace_back(ColorGreen, "Port " + mOpenedPortsNames.at(*mSelectedOpenedPort) + " params have been successfully written.");
 		}
 		catch (uart::PortException& e) {
-			mPortLogEntries.emplace_back(ColorRed, "Port " + mOpenedPortsNames.at(mSelectedOpenedPort) + " params read error: " + e.what());
+			mPortLogEntries.emplace_back(ColorRed, "Port " + mOpenedPortsNames.at(*mSelectedOpenedPort) + " params read error: " + e.what());
 		}
 	}
 
 	void PortConfigurationViewModel::onPortCloseButtonClicked()
 	{
 		try {
-			mPortsModel.closePort(mOpenedPortsNames.at(mSelectedOpenedPort));
+			mPortsModel.closePort(mOpenedPortsNames.at(*mSelectedOpenedPort));
+			updateOpenedPortList();
+			updateAvailablePortList();
 		}
 		catch (uart::PortException& e) {
 			mPortLogEntries.emplace_back(ColorRed, e.what());
 		}
-		updateOpenedPortList();
-		updateAvailablePortList();
 	}
 
 	void PortConfigurationViewModel::onClearLogClicked()
@@ -235,5 +239,23 @@ namespace logic
 	void PortConfigurationViewModel::onWriteParamsClicked()
 	{
 		writePortParams();
+	}
+
+	std::string PortConfigurationViewModel::portOpenButtonText() const
+	{
+		std::string text = "Open";
+		if (mSelectedAvailablePort.has_value()) {
+			text += " " + mAvailablePortsNames.at(*mSelectedAvailablePort);
+		}
+		return text;
+	}
+
+	std::string PortConfigurationViewModel::portCloseButtonText() const
+	{
+		std::string text = "Close";
+		if (mSelectedOpenedPort.has_value()) {
+			text += " " + mOpenedPortsNames.at(*mSelectedOpenedPort);
+		}
+		return text;
 	}
 }

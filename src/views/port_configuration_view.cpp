@@ -25,14 +25,14 @@ namespace
 		}
 	}
 
-	void ListBox(const char *text, const std::span<const std::string>& elements, size_t& selected)
+	void ListBox(const char *text, const std::span<const std::string>& elements, std::optional<size_t>& selected)
 	{
 		if (ImGui::BeginListBox(text))
 		{
 			for (size_t n = 0; n < elements.size(); n++)
 			{
 				const bool is_selected = selected == n;
-				if (ImGui::Selectable(elements[n].c_str(), is_selected)) {
+				if (ImGui::Selectable((elements[n]+"##"+text).c_str(), is_selected)) {
 					selected = n;
 				}
 
@@ -58,7 +58,7 @@ namespace views
 		{
 			ImGui::BeginDisabled();
 		}
-		if (ImGui::Button("Open")) {
+		if (ImGui::Button(mViewModel.portOpenButtonText().c_str())) {
 			mViewModel.onPortOpenButtonClicked();
 		}
 		if (!mViewModel.portOpenEnabled())
@@ -70,7 +70,7 @@ namespace views
 			ImGui::BeginDisabled();
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Close")) {
+		if (ImGui::Button(mViewModel.portCloseButtonText().c_str())) {
 			mViewModel.onPortCloseButtonClicked();
 		}
 		if (!mViewModel.portControlsEnabled())

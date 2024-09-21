@@ -21,12 +21,12 @@ namespace logic
 			return mAvailablePortsDescriptions;
 		}
 
-		size_t& selectedAvailablePort() noexcept override
+		std::optional<size_t>& selectedAvailablePort() noexcept override
 		{
 			return mSelectedAvailablePort;
 		}
 
-		bool portOpenEnabled() noexcept override;
+		bool portOpenEnabled() const noexcept override;
 
 		void onPortOpenButtonClicked() override;
 
@@ -35,12 +35,12 @@ namespace logic
 			return mOpenedPortsNames;
 		}
 
-		size_t& selectedOpenedPort() noexcept override
+		std::optional<size_t>& selectedOpenedPort() noexcept override
 		{
 			return mSelectedOpenedPort;
 		}
 
-		bool portControlsEnabled() noexcept override;
+		bool portControlsEnabled() const noexcept override;
 
 		std::span<const std::string> baudRatesList() const noexcept override
 		{
@@ -90,13 +90,17 @@ namespace logic
 
 		void onWriteParamsClicked() override;
 
+		[[nodiscard]] std::string portOpenButtonText() const override;
+
+		[[nodiscard]] std::string portCloseButtonText() const override;
+
 	private:
 		OpenedPortsModel& mPortsModel;
 		std::vector<std::string> mAvailablePortsDescriptions;
 		std::vector<std::string> mAvailablePortsNames;
-		size_t mSelectedAvailablePort{ 0 };
+		std::optional<size_t> mSelectedAvailablePort{ std::nullopt };
 		std::vector<std::string> mOpenedPortsNames;
-		size_t mSelectedOpenedPort{ 0 };
+		std::optional<size_t> mSelectedOpenedPort{ std::nullopt };
 		const std::vector<std::string> mBaudRates;
 		size_t mSelectedBaudRate{ 0 };
 		int mDataBits{ 0 };
