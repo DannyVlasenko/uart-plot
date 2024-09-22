@@ -23,8 +23,8 @@ views::AppUI::AppUI(const glfw::Window& window, IAppMenuBarViewModel& menuBarMod
 
 views::AppUI::~AppUI()
 {
-	ImPlot::DestroyContext();
 	ImGui_ImplGlfw_Shutdown();
+	ImPlot::DestroyContext();
 	ImGui::DestroyContext();
 }
 

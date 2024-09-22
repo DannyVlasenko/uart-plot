@@ -59,12 +59,9 @@ namespace uart
 	{
 	public:
 		explicit Port(const std::string& name);
-		[[nodiscard]] const std::string& name() const noexcept
-		{
-			return mName;
-		}
 		[[nodiscard]] PortState getState() const;
 		void setState(const PortState& state) const;
+		[[nodiscard]] std::vector<char> readData() const;
 	private:
 		std::string mName;
 		std::unique_ptr<void, void(*)(void*)> mPortHandle;

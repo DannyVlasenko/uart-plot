@@ -22,12 +22,8 @@ namespace logic
 
 	void DockAreaViewModel::addSignalView()
 	{
-		mSignalViews.emplace_back();
+		mSignalViews.emplace_back(mSignalViewModels.emplace_back(mDataSourceModel));
 		updateViewList();
-	}
-
-	void DockAreaViewModel::addSpectrumView()
-	{
 	}
 
 	void DockAreaViewModel::updateViewList()

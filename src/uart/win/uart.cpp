@@ -68,7 +68,7 @@ namespace
 			mKey(openRegistryKey(baseKey, name), &closeRegistryKey)
 		{}
 
-		std::vector<StringSubkey> enumerateStringSubKeys()
+		std::vector<StringSubkey> enumerateStringSubKeys() const
 		{
 			DWORD maxValueNameLen{ 0 };
 			DWORD maxValueLen{ 0 };
@@ -146,6 +146,12 @@ void uart::Port::setState(const PortState& state) const
 {
 	DCB dcbSerialParams;
 	dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
+	if (GetCommState(mPortHandle.get(), &dcbSerialParams) == FALSE)
+	{
+		const auto lastErrorCode = GetLastError();
+		throw PortException("Failed to get port " + mName + " state: Code (" + std::to_string(lastErrorCode) + ") " + getErrorAsString(lastErrorCode));
+	}
+	dcbSerialParams.DCBlength = sizeof(dcbSerialParams);
 	dcbSerialParams.BaudRate = static_cast<DWORD>(state.BaudRate);
 	dcbSerialParams.ByteSize = state.DataBits;
 	dcbSerialParams.Parity = static_cast<BYTE>(state.Parity);
@@ -155,6 +161,36 @@ void uart::Port::setState(const PortState& state) const
 		const auto lastErrorCode = GetLastError();
 		throw PortException("Failed to set port " + mName + " state: Code (" + std::to_string(lastErrorCode) + ") " + getErrorAsString(lastErrorCode));
 	}
+}
+
+std::vector<char> uart::Port::readData() const
+{
+	COMMTIMEOUTS commTimeouts;
+	if (!GetCommTimeouts(mPortHandle.get(), &commTimeouts)) {
+		const auto lastErrorCode = GetLastError();
+		throw PortException("Failed to get port " + mName + " timeouts: Code (" + std::to_string(lastErrorCode) + ") " + getErrorAsString(lastErrorCode));
+	}
+	commTimeouts.ReadIntervalTimeout = 0;
+	commTimeouts.ReadTotalTimeoutMultiplier = 0;
+	commTimeouts.ReadTotalTimeoutConstant = 1;
+	if (!SetCommTimeouts(mPortHandle.get(), &commTimeouts)) {
+		const auto lastErrorCode = GetLastError();
+		throw PortException("Failed to set port " + mName + " timeouts: Code (" + std::to_string(lastErrorCode) + ") " + getErrorAsString(lastErrorCode));
+	}
+	COMMPROP commProps;
+	if (!GetCommProperties(mPortHandle.get(), &commProps)) {
+		const auto lastErrorCode = GetLastError();
+		throw PortException("Failed to get port " + mName + " properties: Code (" + std::to_string(lastErrorCode) + ") " + getErrorAsString(lastErrorCode));
+	}
+
+	DWORD bytesRead = 0;
+	std::vector<char> readBuffer(4096);
+	if (!ReadFile(mPortHandle.get(), readBuffer.data(), static_cast<DWORD>(readBuffer.size()), &bytesRead, nullptr)) {
+		const auto lastErrorCode = GetLastError();
+		throw PortException("Failed to read data from port " + mName + ": Code (" + std::to_string(lastErrorCode) + ") " + getErrorAsString(lastErrorCode));
+	}
+	readBuffer.resize(bytesRead);
+	return readBuffer;
 }
 
 std::vector<uart::PortDescription> uart::enumeratePorts()

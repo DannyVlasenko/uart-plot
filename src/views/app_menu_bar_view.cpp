@@ -14,9 +14,6 @@ void views::AppMenuBarView::render() const
             if (ImGui::MenuItem("Add Signal Plot")) {
                 mViewModel.onNewSignalViewClicked();
             }
-            if (ImGui::MenuItem("Add Spectrum Plot")) {
-                mViewModel.onNewSpectrumViewClicked();
-            }
             ImGui::EndMenu();
         }
         ImGui::EndMainMenuBar();

@@ -9,6 +9,7 @@
 #include "logic/viewmodels/app_menu_bar_viewmodel.hpp"
 #include "logic/viewmodels/dock_area_viewmodel.hpp"
 #include "logic/viewmodels/port_configuration_viewmodel.hpp"
+#include "models/data_source_model.hpp"
 
 namespace uart_plot
 {
@@ -30,9 +31,10 @@ namespace uart_plot
 
 	void Application::run() const
 	{
-		logic::OpenedPortsModel portsModel;
+		logic::DataSourceModel dataSourceModel;
+		logic::OpenedPortsModel portsModel{ dataSourceModel };
 		logic::PortConfigurationViewModel portConfigVM{ portsModel };
-		logic::DockAreaViewModel dockVM{ portConfigVM, portsModel };
+		logic::DockAreaViewModel dockVM{ portConfigVM, portsModel, dataSourceModel };
 		logic::AppMenuBarViewModel appMenuBarVM{ dockVM };
 		views::AppUI ui{ mMainWindow, appMenuBarVM, dockVM };
 
@@ -41,6 +43,8 @@ namespace uart_plot
 		
 		while (!mMainWindow.shouldClose()) {
 			glfw::Window::processEvents();
+			dataSourceModel.update();
+			dockVM.update();
 			GLCall(glClear(GL_COLOR_BUFFER_BIT));
 			ui.render();
 			mMainWindow.swapBuffers();

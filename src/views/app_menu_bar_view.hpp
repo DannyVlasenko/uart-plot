@@ -14,7 +14,6 @@ namespace views
 		virtual bool portConfigurationChecked() = 0;
 		virtual void onPortConfigurationClicked() = 0;
 		virtual void onNewSignalViewClicked() = 0;
-		virtual void onNewSpectrumViewClicked() = 0;
 	};
 
 	class AppMenuBarView : public IView

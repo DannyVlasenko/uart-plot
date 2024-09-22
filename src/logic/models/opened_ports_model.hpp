@@ -6,9 +6,14 @@
 
 namespace logic 
 {
+	class DataSourceModel;
 	class OpenedPortsModel
 	{
 	public:
+		explicit OpenedPortsModel(DataSourceModel& dataSourceModel)
+			: mDataSourceModel(dataSourceModel)
+		{}
+
 		void openPort(const std::string& name);
 
 		void closePort(const std::string& name);
@@ -20,5 +25,6 @@ namespace logic
 
 	private:
 		std::unordered_map<std::string, uart::Port> mPorts;
+		DataSourceModel& mDataSourceModel;
 	};
 }

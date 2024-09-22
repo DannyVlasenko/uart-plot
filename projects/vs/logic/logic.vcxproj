@@ -45,7 +45,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>false</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -112,7 +112,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../../../src;../../../src/logic;../../../src/uart/win;../../../third-parties/glm</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
@@ -147,16 +147,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\logic\models\data_source_model.hpp" />
     <ClInclude Include="..\..\..\src\logic\models\opened_ports_model.hpp" />
+    <ClInclude Include="..\..\..\src\logic\models\uart_signal_source.hpp" />
     <ClInclude Include="..\..\..\src\logic\viewmodels\app_menu_bar_viewmodel.hpp" />
     <ClInclude Include="..\..\..\src\logic\viewmodels\dock_area_viewmodel.hpp" />
     <ClInclude Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.hpp" />
+    <ClInclude Include="..\..\..\src\logic\viewmodels\signal_viewmodel.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\logic\models\opened_ports_model.cpp" />
+    <ClCompile Include="..\..\..\src\logic\models\uart_signal_source.cpp" />
     <ClCompile Include="..\..\..\src\logic\viewmodels\app_menu_bar_viewmodel.cpp" />
     <ClCompile Include="..\..\..\src\logic\viewmodels\dock_area_viewmodel.cpp" />
     <ClCompile Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.cpp" />
+    <ClCompile Include="..\..\..\src\logic\viewmodels\signal_viewmodel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\uart\uart.vcxproj">
