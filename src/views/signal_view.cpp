@@ -54,7 +54,7 @@ namespace views
 				ImGui::SameLine();
 				ImGui::DragFloat("Screen duration", &mStickDuration, 1, 1, 100, "%.f", ImGuiSliderFlags_AlwaysClamp);
 			}
-			ImPlot::BeginPlot(("##Signal1Samples" + mViewModel.plotName()).c_str());
+			ImPlot::BeginPlot(("##Signal1Samples" + mViewModel.plotName()).c_str(), ImVec2(-1,-1));
 			ImPlot::SetupAxis(ImAxis_X1, "t, sec");
 			ImPlot::SetupAxis(ImAxis_Y1, "A");
 			ImPlot::SetupAxisLimitsConstraints(ImAxis_X1, 0.0, std::numeric_limits<double>::max());
