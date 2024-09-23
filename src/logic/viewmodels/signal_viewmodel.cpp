@@ -17,21 +17,6 @@ namespace logic
 		mLastSourceCount = mDataSourceModel.dataSources().size();
 	}
 
-	const std::string& SignalViewModel::plotName() const noexcept
-	{
-		return mName;
-	}
-
-	std::span<const std::string> SignalViewModel::availableDataSources() const noexcept
-	{
-		return mAvailableDataSources;
-	}
-
-	size_t& SignalViewModel::selectedDataSource() noexcept
-	{
-		return mSelectedDataSource;
-	}
-
 	std::span<const double> SignalViewModel::data() const noexcept
 	{
 		if (mAvailableDataSources.empty()) {

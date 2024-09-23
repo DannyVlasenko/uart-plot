@@ -2,6 +2,7 @@
 
 #include <span>
 #include <string>
+#include <vector>
 
 #include "view.hpp"
 
@@ -28,5 +29,9 @@ namespace views
 
 	private:
 		ISignalViewModel& mViewModel;
+		mutable float mSamplingFrequency{ 256 };
+		mutable bool mStickToLatest{ true };
+		mutable float mStickDuration{ 10.0 };
+		mutable std::vector<double> mTimeData;
 	};
 }

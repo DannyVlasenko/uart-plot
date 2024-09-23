@@ -184,7 +184,7 @@ std::vector<char> uart::Port::readData() const
 	}
 
 	DWORD bytesRead = 0;
-	std::vector<char> readBuffer(4096);
+	std::vector<char> readBuffer(commProps.dwCurrentRxQueue);
 	if (!ReadFile(mPortHandle.get(), readBuffer.data(), static_cast<DWORD>(readBuffer.size()), &bytesRead, nullptr)) {
 		const auto lastErrorCode = GetLastError();
 		throw PortException("Failed to read data from port " + mName + ": Code (" + std::to_string(lastErrorCode) + ") " + getErrorAsString(lastErrorCode));

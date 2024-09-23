@@ -15,9 +15,22 @@ namespace logic
 		{}
 
 		void update();
-		[[nodiscard]] const std::string& plotName() const noexcept override;
-		[[nodiscard]] std::span<const std::string> availableDataSources() const noexcept override;
-		[[nodiscard]] size_t& selectedDataSource() noexcept override;
+
+		[[nodiscard]] const std::string& plotName() const noexcept override
+		{
+			return mName;
+		}
+
+		[[nodiscard]] std::span<const std::string> availableDataSources() const noexcept override
+		{
+			return mAvailableDataSources;
+		}
+
+		[[nodiscard]] size_t& selectedDataSource() noexcept override
+		{
+			return mSelectedDataSource;
+		}
+
 		[[nodiscard]] std::span<const double> data() const noexcept override;
 
 	private:

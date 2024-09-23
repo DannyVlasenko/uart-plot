@@ -23,6 +23,7 @@ views::AppUI::AppUI(const glfw::Window& window, IAppMenuBarViewModel& menuBarMod
 
 views::AppUI::~AppUI()
 {
+	ImGui_ImplOpenGL3_Shutdown();
 	ImGui_ImplGlfw_Shutdown();
 	ImPlot::DestroyContext();
 	ImGui::DestroyContext();
