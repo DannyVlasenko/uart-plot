@@ -35,6 +35,7 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\views\app_menu_bar_view.cpp" />
     <ClCompile Include="..\..\..\src\views\signal_view.cpp" />
+    <ClCompile Include="..\..\..\src\views\spectrum_view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\views\app_ui.hpp" />
@@ -72,6 +73,7 @@
     </ClInclude>
     <ClInclude Include="..\..\..\src\views\app_menu_bar_view.hpp" />
     <ClInclude Include="..\..\..\src\views\signal_view.hpp" />
+    <ClInclude Include="..\..\..\src\views\spectrum_view.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">

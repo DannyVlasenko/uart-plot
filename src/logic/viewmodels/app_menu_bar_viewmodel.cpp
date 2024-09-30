@@ -16,4 +16,9 @@ namespace logic
 	{
 		mDockViewModel.addSignalView();
 	}
+
+	void AppMenuBarViewModel::onNewSpectrumViewClicked()
+	{
+		mDockViewModel.addSpectrumView();
+	}
 }

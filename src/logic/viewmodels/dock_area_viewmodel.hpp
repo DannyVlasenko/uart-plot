@@ -8,7 +8,9 @@
 #include <vector>
 #include <optional>
 
+#include "spectrum_viewmodel.hpp"
 #include "models/data_source_model.hpp"
+#include "views/spectrum_view.hpp"
 
 namespace views
 {
@@ -38,6 +40,9 @@ namespace logic
 			for (auto& signalViewModel : mSignalViewModels) {
 				signalViewModel.update();
 			}
+			for (auto& signalViewModel : mSpectrumViewModels) {
+				signalViewModel.update();
+			}
 		}
 
 		[[nodiscard]]
@@ -47,13 +52,17 @@ namespace logic
 
 		void addSignalView();
 
+		void addSpectrumView();
+
 	private:
 		OpenedPortsModel& mPortsModel;
 		DataSourceModel& mDataSourceModel;
 		views::IPortConfigurationViewModel& mPortConfigViewModel;
 		std::vector<SignalViewModel> mSignalViewModels;
+		std::vector<SpectrumViewModel> mSpectrumViewModels;
 		std::optional<views::PortConfigurationView> mPortConfigView;
 		std::vector<views::SignalView> mSignalViews;
+		std::vector<views::SpectrumView> mSpectrumViews;
 		std::vector<const views::IView*> mViews;
 
 		void updateViewList();

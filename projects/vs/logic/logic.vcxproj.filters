@@ -30,6 +30,9 @@
     <ClInclude Include="..\..\..\src\logic\viewmodels\signal_viewmodel.hpp">
       <Filter>viewmodels</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\src\logic\viewmodels\spectrum_viewmodel.hpp">
+      <Filter>viewmodels</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.cpp">
@@ -48,6 +51,9 @@
       <Filter>models</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\logic\viewmodels\signal_viewmodel.cpp">
+      <Filter>viewmodels</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\logic\viewmodels\spectrum_viewmodel.cpp">
       <Filter>viewmodels</Filter>
     </ClCompile>
   </ItemGroup>

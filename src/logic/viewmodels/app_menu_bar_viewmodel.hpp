@@ -15,6 +15,8 @@ namespace logic
 		bool portConfigurationChecked() override;
 		void onPortConfigurationClicked() override;
 		void onNewSignalViewClicked() override;
+		void onNewSpectrumViewClicked() override;
+
 	private:
 		DockAreaViewModel& mDockViewModel;
 	};

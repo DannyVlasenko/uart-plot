@@ -26,6 +26,12 @@ namespace logic
 		updateViewList();
 	}
 
+	void DockAreaViewModel::addSpectrumView()
+	{
+		mSpectrumViews.emplace_back(mSpectrumViewModels.emplace_back(mDataSourceModel));
+		updateViewList();
+	}
+
 	void DockAreaViewModel::updateViewList()
 	{
 		mViews.clear();
@@ -34,6 +40,9 @@ namespace logic
 		}
 		for (const auto& signalView : mSignalViews) {
 			mViews.push_back(&signalView);
+		}
+		for (const auto& spectrumView : mSpectrumViews) {
+			mViews.push_back(&spectrumView);
 		}
 	}
 }
