@@ -15,6 +15,9 @@ namespace logic
 			}
 			mLastSourceCount = mDataSourceModel.dataSources().size();
 		}
+		if (mDataSourceModel.dataSources().empty()) {
+			return;
+		}
 		const auto& dataSource = mDataSourceModel.dataSources().at(mAvailableDataSources.at(mSelectedDataSource));
 		//const auto samplesRequired = static_cast<int>(mDuration * mSamplingFrequency);
 		const auto offset = dataSource->size() > mSamplesNumber ? dataSource->size() - mSamplesNumber : 0;
