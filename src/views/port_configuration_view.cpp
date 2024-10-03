@@ -65,7 +65,8 @@ namespace views
 		{
 			ImGui::EndDisabled();
 		}
-		if (!mViewModel.portControlsEnabled())
+		const auto portControlsEnabled = mViewModel.portControlsEnabled();
+		if (!portControlsEnabled)
 		{
 			ImGui::BeginDisabled();
 		}
@@ -73,12 +74,12 @@ namespace views
 		if (ImGui::Button(mViewModel.portCloseButtonText().c_str())) {
 			mViewModel.onPortCloseButtonClicked();
 		}
-		if (!mViewModel.portControlsEnabled())
+		if (!portControlsEnabled)
 		{
 			ImGui::EndDisabled();
 		}
 		ListBox("Opened ports", mViewModel.openedPorts(), mViewModel.selectedOpenedPort());
-		if (!mViewModel.portControlsEnabled())
+		if (!portControlsEnabled)
 		{
 			ImGui::BeginDisabled();
 		}
@@ -93,7 +94,7 @@ namespace views
 		ImGui::DragInt("Data bits", &mViewModel.dataBits(), 1, 6, 9);
 		ComboBox("Parity", mViewModel.paritiesList(), mViewModel.selectedParity());
 		ComboBox("Stop bits", mViewModel.stopBitsList(), mViewModel.selectedStopBits());		
-		if (!mViewModel.portControlsEnabled())
+		if (!portControlsEnabled)
 		{
 			ImGui::EndDisabled();
 		}

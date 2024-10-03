@@ -34,7 +34,7 @@ namespace views
 	{
 		if (ImGui::Begin(mViewModel.plotName().c_str())) {
 			ComboBox("Data source", mViewModel.availableDataSources(), mViewModel.selectedDataSource());
-			if (ImGui::DragInt(("Sampling frequency, Hz##FSampling" + mViewModel.plotName()).c_str(), &mViewModel.samplingFrequency(), 1, 1, 1024, "%d", ImGuiSliderFlags_AlwaysClamp)) {
+			if (ImGui::DragInt(("Sampling frequency, Hz##FSampling" + mViewModel.plotName()).c_str(), &mViewModel.samplingFrequency(), 1, 1, 100000, "%d", ImGuiSliderFlags_AlwaysClamp)) {
 				mFrequencyData.clear();
 			}
 			if (ImGui::DragInt(("Samples number##SampleNum" + mViewModel.plotName()).c_str(), &mViewModel.samplesNumber(), 1, mViewModel.samplingFrequency(), 4096, "%d", ImGuiSliderFlags_AlwaysClamp)) {
