@@ -29,9 +29,9 @@ namespace views
 
 	private:
 		ISignalViewModel& mViewModel;
-		mutable float mSamplingFrequency{ 256 };
+		mutable float mSamplingFrequency{ 500 };
 		mutable bool mStickToLatest{ true };
-		mutable float mStickDuration{ 10.0 };
+		mutable float mStickDuration{ 30.0 };
 		mutable std::vector<double> mTimeData;
 	};
 }
