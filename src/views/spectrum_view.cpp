@@ -40,7 +40,6 @@ namespace views
 			if (ImGui::DragInt(("Samples number##SampleNum" + mViewModel.plotName()).c_str(), &mViewModel.samplesNumber(), 1, mViewModel.samplingFrequency(), 4096, "%d", ImGuiSliderFlags_AlwaysClamp)) {
 				mFrequencyData.clear();
 			}
-			//ImGui::DragFloat(("Spectrum duration, s##SpectrumDuration" + mViewModel.plotName()).c_str(), &mViewModel.spectrumDuration(), 1, 1, mViewModel.samplesNumber() / mViewModel.samplingFrequency(), "%.f", ImGuiSliderFlags_AlwaysClamp);
 			if (mFrequencyData.empty()) {
 				auto frequencies = std::views::iota(0, mViewModel.samplesNumber() / 2)
 					| std::views::transform([&](int index) { return static_cast<double>(index) * mViewModel.samplingFrequency() / mViewModel.samplesNumber(); });

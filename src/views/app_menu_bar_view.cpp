@@ -10,6 +10,9 @@ void views::AppMenuBarView::render() const
             if (ImGui::MenuItem("Port Configuration Window", nullptr, mViewModel.portConfigurationChecked())) {
                 mViewModel.onPortConfigurationClicked();
             }
+            if (ImGui::MenuItem("BLE Devices Window", nullptr, mViewModel.bleConfigurationChecked())) {
+                mViewModel.onBleConfigurationClicked();
+            }
             ImGui::Separator();
             if (ImGui::MenuItem("Add Signal Plot")) {
                 mViewModel.onNewSignalViewClicked();

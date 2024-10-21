@@ -12,6 +12,16 @@ namespace logic
 		mDockViewModel.switchPortConfigViewVisibility();
 	}
 
+	bool AppMenuBarViewModel::bleConfigurationChecked()
+	{
+		return mDockViewModel.bleConfigViewVisible();
+	}
+
+	void AppMenuBarViewModel::onBleConfigurationClicked()
+	{
+		mDockViewModel.switchBleConfigViewVisibility();
+	}
+
 	void AppMenuBarViewModel::onNewSignalViewClicked()
 	{
 		mDockViewModel.addSignalView();

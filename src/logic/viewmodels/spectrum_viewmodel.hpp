@@ -34,11 +34,6 @@ namespace logic
 
 		[[nodiscard]] std::span<const double> data() const noexcept override;
 
-		/*[[nodiscard]] float& spectrumDuration() noexcept override
-		{
-			return mDuration;
-		}*/
-
 		[[nodiscard]] int& samplingFrequency() noexcept override
 		{
 			return mSamplingFrequency;
@@ -56,7 +51,6 @@ namespace logic
 		std::vector<std::string> mAvailableDataSources;
 		size_t mSelectedDataSource{ 0 };
 		std::vector<double> mSpectrum;
-		//float mDuration{ 20.0 };
 		int mSamplingFrequency{ 500 };
 		int mSamplesNumber{ 2048 };
 	};

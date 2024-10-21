@@ -154,6 +154,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\src\views\app_menu_bar_view.cpp" />
     <ClCompile Include="..\..\..\src\views\app_ui.cpp" />
+    <ClCompile Include="..\..\..\src\views\ble_configuration_view.cpp" />
     <ClCompile Include="..\..\..\src\views\port_configuration_view.cpp" />
     <ClCompile Include="..\..\..\src\views\signal_view.cpp" />
     <ClCompile Include="..\..\..\src\views\spectrum_view.cpp" />
@@ -171,6 +172,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\src\views\app_menu_bar_view.hpp" />
     <ClInclude Include="..\..\..\src\views\app_ui.hpp" />
+    <ClInclude Include="..\..\..\src\views\ble_configuration_view.hpp" />
     <ClInclude Include="..\..\..\src\views\port_configuration_view.hpp" />
     <ClInclude Include="..\..\..\src\views\signal_view.hpp" />
     <ClInclude Include="..\..\..\src\views\spectrum_view.hpp" />

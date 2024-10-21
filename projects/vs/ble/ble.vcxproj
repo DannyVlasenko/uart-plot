@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{b24be752-b6ff-4f35-9963-122a4bb8db38}</ProjectGuid>
-    <RootNamespace>logic</RootNamespace>
+    <ProjectGuid>{74f60e1f-a9b2-415a-bff9-384aaf3a0774}</ProjectGuid>
+    <RootNamespace>ble</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -44,7 +44,7 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -52,7 +52,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -114,9 +114,9 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../../src;../../../src/logic;../../../src/uart/win;../../../third-parties/glm;../../../third-parties/kissfft-131.1.0</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -134,9 +134,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../../../src;../../../src/logic;../../../src/uart/win;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -147,33 +145,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\src\logic\models\data_source_model.hpp" />
-    <ClInclude Include="..\..\..\src\logic\models\opened_ports_model.hpp" />
-    <ClInclude Include="..\..\..\src\logic\models\uart_signal_source.hpp" />
-    <ClInclude Include="..\..\..\src\logic\viewmodels\app_menu_bar_viewmodel.hpp" />
-    <ClInclude Include="..\..\..\src\logic\viewmodels\ble_configuration_viewmodel.hpp" />
-    <ClInclude Include="..\..\..\src\logic\viewmodels\dock_area_viewmodel.hpp" />
-    <ClInclude Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.hpp" />
-    <ClInclude Include="..\..\..\src\logic\viewmodels\signal_viewmodel.hpp" />
-    <ClInclude Include="..\..\..\src\logic\viewmodels\spectrum_viewmodel.hpp" />
+    <ClInclude Include="..\..\..\src\ble\win\ble.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\src\logic\models\opened_ports_model.cpp" />
-    <ClCompile Include="..\..\..\src\logic\models\uart_signal_source.cpp" />
-    <ClCompile Include="..\..\..\src\logic\viewmodels\app_menu_bar_viewmodel.cpp" />
-    <ClCompile Include="..\..\..\src\logic\viewmodels\ble_configuration_viewmodel.cpp" />
-    <ClCompile Include="..\..\..\src\logic\viewmodels\dock_area_viewmodel.cpp" />
-    <ClCompile Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.cpp" />
-    <ClCompile Include="..\..\..\src\logic\viewmodels\signal_viewmodel.cpp" />
-    <ClCompile Include="..\..\..\src\logic\viewmodels\spectrum_viewmodel.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ble\ble.vcxproj">
-      <Project>{74f60e1f-a9b2-415a-bff9-384aaf3a0774}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\uart\uart.vcxproj">
-      <Project>{1858b143-8e54-45f6-9e59-26e1a3a81422}</Project>
-    </ProjectReference>
+    <ClCompile Include="..\..\..\src\ble\win\ble.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
