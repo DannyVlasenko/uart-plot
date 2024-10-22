@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <unordered_set>
 
 namespace ble
 {
@@ -11,7 +12,7 @@ namespace ble
 		std::string Name;
 		std::string Address;
 		int RSSI;
-		std::vector<std::string> ServicesUuids;
+		std::unordered_set<std::string> ServicesUuids;
 	};
 
 	class AdvertisementScanner
@@ -23,6 +24,12 @@ namespace ble
 		void start();
 		void stop();
 		bool isScanning() const;
+		int inRangeThreshold() const;
+		void setInRangeThreshold(int threshold);
+		int outOfRangeThreshold() const;
+		void setOutOfRangeThreshold(int threshold);
+		int outOfRangeTimeoutSeconds() const;
+		void setOutOfRangeTimeoutSeconds(int timeout);
 		std::vector<AdvertisementData> activeAdvertisements() const;
 
 	private:

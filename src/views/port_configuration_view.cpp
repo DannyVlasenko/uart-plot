@@ -49,66 +49,67 @@ namespace views
 {
 	void PortConfigurationView::render() const
 	{
-		ImGui::Begin("Port Configuration");
-		if (ImGui::Button("Refresh")) {
-			mViewModel.onPortRefreshButtonClicked();
-		}
-		ListBox("Available ports", mViewModel.availablePorts(), mViewModel.selectedAvailablePort());
-		if (!mViewModel.portOpenEnabled())
-		{
-			ImGui::BeginDisabled();
-		}
-		if (ImGui::Button(mViewModel.portOpenButtonText().c_str())) {
-			mViewModel.onPortOpenButtonClicked();
-		}
-		if (!mViewModel.portOpenEnabled())
-		{
-			ImGui::EndDisabled();
-		}
-		const auto portControlsEnabled = mViewModel.portControlsEnabled();
-		if (!portControlsEnabled)
-		{
-			ImGui::BeginDisabled();
-		}
-		ImGui::SameLine();
-		if (ImGui::Button(mViewModel.portCloseButtonText().c_str())) {
-			mViewModel.onPortCloseButtonClicked();
-		}
-		if (!portControlsEnabled)
-		{
-			ImGui::EndDisabled();
-		}
-		ListBox("Opened ports", mViewModel.openedPorts(), mViewModel.selectedOpenedPort());
-		if (!portControlsEnabled)
-		{
-			ImGui::BeginDisabled();
-		}
-		if (ImGui::Button("Read Params")) {
-			mViewModel.onReadParamsClicked();
-		}
-		ImGui::SameLine();
-		if (ImGui::Button("Write Params")) {
-			mViewModel.onWriteParamsClicked();
-		}
-		ComboBox("Bits per second", mViewModel.baudRatesList(), mViewModel.selectedBaudRate());
-		ImGui::DragInt("Data bits", &mViewModel.dataBits(), 1, 6, 9);
-		ComboBox("Parity", mViewModel.paritiesList(), mViewModel.selectedParity());
-		ComboBox("Stop bits", mViewModel.stopBitsList(), mViewModel.selectedStopBits());		
-		if (!portControlsEnabled)
-		{
-			ImGui::EndDisabled();
-		}
-		if (ImGui::Button("Clear Log"))
-		{
-			mViewModel.onClearLogClicked();
-		}
-		if (ImGui::BeginChild("Port Log", ImVec2(0, 0), ImGuiChildFlags_Borders, ImGuiWindowFlags_HorizontalScrollbar))
-		{
-			for (const auto& logEntry : mViewModel.portLogEntries()) {
-				ImGui::TextColored({ logEntry.Color.x, logEntry.Color.y,logEntry.Color.z,logEntry.Color.w }, logEntry.Text.c_str());
+		if (ImGui::Begin("Port Configuration")) {
+			if (ImGui::Button("Refresh")) {
+				mViewModel.onPortRefreshButtonClicked();
 			}
+			ListBox("Available ports", mViewModel.availablePorts(), mViewModel.selectedAvailablePort());
+			if (!mViewModel.portOpenEnabled())
+			{
+				ImGui::BeginDisabled();
+			}
+			if (ImGui::Button(mViewModel.portOpenButtonText().c_str())) {
+				mViewModel.onPortOpenButtonClicked();
+			}
+			if (!mViewModel.portOpenEnabled())
+			{
+				ImGui::EndDisabled();
+			}
+			const auto portControlsEnabled = mViewModel.portControlsEnabled();
+			if (!portControlsEnabled)
+			{
+				ImGui::BeginDisabled();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button(mViewModel.portCloseButtonText().c_str())) {
+				mViewModel.onPortCloseButtonClicked();
+			}
+			if (!portControlsEnabled)
+			{
+				ImGui::EndDisabled();
+			}
+			ListBox("Opened ports", mViewModel.openedPorts(), mViewModel.selectedOpenedPort());
+			if (!portControlsEnabled)
+			{
+				ImGui::BeginDisabled();
+			}
+			if (ImGui::Button("Read Params")) {
+				mViewModel.onReadParamsClicked();
+			}
+			ImGui::SameLine();
+			if (ImGui::Button("Write Params")) {
+				mViewModel.onWriteParamsClicked();
+			}
+			ComboBox("Bits per second", mViewModel.baudRatesList(), mViewModel.selectedBaudRate());
+			ImGui::DragInt("Data bits", &mViewModel.dataBits(), 1, 6, 9);
+			ComboBox("Parity", mViewModel.paritiesList(), mViewModel.selectedParity());
+			ComboBox("Stop bits", mViewModel.stopBitsList(), mViewModel.selectedStopBits());
+			if (!portControlsEnabled)
+			{
+				ImGui::EndDisabled();
+			}
+			if (ImGui::Button("Clear Log"))
+			{
+				mViewModel.onClearLogClicked();
+			}
+			if (ImGui::BeginChild("Port Log", ImVec2(0, 0), ImGuiChildFlags_Borders, ImGuiWindowFlags_HorizontalScrollbar))
+			{
+				for (const auto& logEntry : mViewModel.portLogEntries()) {
+					ImGui::TextColored({ logEntry.Color.x, logEntry.Color.y,logEntry.Color.z,logEntry.Color.w }, logEntry.Text.c_str());
+				}
+			}
+			ImGui::EndChild();
 		}
-		ImGui::EndChild();
 		ImGui::End();
 	}
 }

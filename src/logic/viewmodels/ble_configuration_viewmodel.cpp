@@ -6,7 +6,19 @@ namespace logic
 	{
 		mAdvertisements.clear();
 		for (const auto& adv : mScanner.activeAdvertisements()) {
-			mAdvertisements.push_back(adv.Name + " [" + adv.Address + "](" + std::to_string(adv.RSSI) + ")");
+			mAdvertisements.push_back((adv.Name.empty() ? "N/A" : adv.Name) + "\nAddress: " + adv.Address + "\nRSSI: " + std::to_string(adv.RSSI));
+		}
+		if (mInRangeRssi != mScanner.inRangeThreshold()) {
+			mScanner.setInRangeThreshold(mInRangeRssi);
+			mInRangeRssi = mScanner.inRangeThreshold();
+		}
+		if (mOutOfRangeRssi != mScanner.outOfRangeThreshold()) {
+			mScanner.setOutOfRangeThreshold(mOutOfRangeRssi);
+			mOutOfRangeRssi = mScanner.outOfRangeThreshold();
+		}
+		if (mOutOfRangeTimeout != mScanner.outOfRangeTimeoutSeconds()) {
+			mScanner.setOutOfRangeTimeoutSeconds(mOutOfRangeTimeout);
+			mOutOfRangeTimeout = mScanner.outOfRangeTimeoutSeconds();
 		}
 	}
 
@@ -18,6 +30,11 @@ namespace logic
 		else {
 			mScanner.start();
 		}
+	}
+
+	bool BleConfigurationViewModel::rssiFilterControlsEnabled() const noexcept
+	{
+		return !mScanner.isScanning();
 	}
 
 	std::span<const std::string> BleConfigurationViewModel::advertisingDevices() const noexcept

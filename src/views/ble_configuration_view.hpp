@@ -13,6 +13,10 @@ namespace views
 	public:
 		virtual ~IBleConfigurationViewModel() = default;
 		virtual void onScanButtonClicked() = 0;
+		virtual [[nodiscard]] bool rssiFilterControlsEnabled() const noexcept = 0;
+		virtual [[nodiscard]] int& inRangeThreshold() noexcept = 0;
+		virtual [[nodiscard]] int& outOfRangeThreshold() noexcept = 0;
+		virtual [[nodiscard]] int& outOfRangeTimeout() noexcept = 0;
 		virtual [[nodiscard]] std::span<const std::string> advertisingDevices() const noexcept = 0;
 		virtual [[nodiscard]] std::optional<size_t>& selectedAdvertisingDevice() noexcept = 0;
 		virtual [[nodiscard]] const char* scanButtonText() const noexcept = 0;
