@@ -8,6 +8,20 @@
 
 namespace views
 {
+	struct AdvertisementData 
+	{
+		uint64_t Address;
+		std::string Name;
+		int RSSI;
+	};
+
+	[[nodiscard]] std::string to_string(const AdvertisementData& data);
+
+	inline [[nodiscard]] bool operator==(const AdvertisementData& lhs, const AdvertisementData& rhs) noexcept 
+	{
+		return lhs.Address == rhs.Address;
+	}
+
 	class IBleConfigurationViewModel
 	{
 	public:
@@ -17,8 +31,8 @@ namespace views
 		virtual [[nodiscard]] int& inRangeThreshold() noexcept = 0;
 		virtual [[nodiscard]] int& outOfRangeThreshold() noexcept = 0;
 		virtual [[nodiscard]] int& outOfRangeTimeout() noexcept = 0;
-		virtual [[nodiscard]] std::span<const std::string> advertisingDevices() const noexcept = 0;
-		virtual [[nodiscard]] std::optional<size_t>& selectedAdvertisingDevice() noexcept = 0;
+		virtual [[nodiscard]] std::span<const AdvertisementData> advertisingDevices() const noexcept = 0;
+		virtual [[nodiscard]] std::optional<AdvertisementData>& selectedAdvertisingDevice() noexcept = 0;
 		virtual [[nodiscard]] const char* scanButtonText() const noexcept = 0;
 		virtual void onConnectButtonClicked() = 0;
 		virtual [[nodiscard]] bool isConnectButtonEnabled() const noexcept = 0;

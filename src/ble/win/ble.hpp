@@ -53,8 +53,11 @@ namespace ble
 	{
 	public:
 		GattDevice(uint64_t address);
+		GattDevice(GattDevice&&) noexcept;
+		GattDevice& operator=(GattDevice&&) noexcept;
 		~GattDevice();
 		bool isConnected() const;
+		[[nodiscard]] std::string name() const;
 		std::vector<GattService> discoverServices() const;
 
 	private:

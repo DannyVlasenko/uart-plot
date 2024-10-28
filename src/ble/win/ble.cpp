@@ -205,11 +205,20 @@ namespace ble
 		mImpl(new Impl{ .mDevice = deviceFromAddress(address) })
 	{}
 
+	GattDevice::GattDevice(GattDevice&&) noexcept = default;
+
+	GattDevice& GattDevice::operator=(GattDevice&&) noexcept = default;
+
 	GattDevice::~GattDevice() = default;
 
 	bool GattDevice::isConnected() const
 	{
 		return mImpl->mDevice.ConnectionStatus() == BluetoothConnectionStatus::Connected;
+	}
+
+	std::string GattDevice::name() const
+	{
+		return to_string(mImpl->mDevice.Name());
 	}
 
 	std::vector<GattService> GattDevice::discoverServices() const

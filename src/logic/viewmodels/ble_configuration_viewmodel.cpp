@@ -1,42 +1,22 @@
 #include "ble_configuration_viewmodel.hpp"
+#include "logic/models/connected_ble_devices_model.hpp"
 
-#include <array>
-#include <sstream>
-#include <iomanip>
-
-namespace
-{
-	std::string formatAddress(uint64_t uintAddress)
-	{
-		std::array<unsigned char, 6> addressArray
-		{
-			static_cast<unsigned char>((uintAddress & 0x0000FF0000000000) >> 40),
-			static_cast<unsigned char>((uintAddress & 0x000000FF00000000) >> 32),
-			static_cast<unsigned char>((uintAddress & 0x00000000FF000000) >> 24),
-			static_cast<unsigned char>((uintAddress & 0x0000000000FF0000) >> 16),
-			static_cast<unsigned char>((uintAddress & 0x000000000000FF00) >> 8),
-			static_cast<unsigned char>((uintAddress & 0x00000000000000FF))
-		};
-		std::stringstream resultStream{};
-		resultStream << std::hex << std::uppercase;
-		const auto last_element_index = addressArray.size() - 1;
-
-		for (size_t i = 0; i < last_element_index; i++) {
-			resultStream << std::setfill('0') << std::setw(2) << static_cast<unsigned short>(addressArray[i]) << ":";
-		}
-		resultStream << std::setfill('0') << std::setw(2)
-			<< static_cast<unsigned short>(addressArray[last_element_index]);
-		return resultStream.str();
-	}
-}
+#include <ranges>
 
 namespace logic
 {
+	BleConfigurationViewModel::BleConfigurationViewModel(ConnectedBleDevicesModel& devicesModel):
+		mDevicesModel(devicesModel)
+	{}
+
 	void BleConfigurationViewModel::update()
 	{
 		mAdvertisements.clear();
 		for (const auto& adv : mScanner.activeAdvertisements()) {
-			mAdvertisements.push_back((adv.Name.empty() ? "N/A" : adv.Name) + "\nAddress: " + formatAddress(adv.Address) + "\nRSSI: " + std::to_string(adv.RSSI));
+			/*if (mDevicesModel.devices().contains(adv.Address)) {
+				continue;
+			}*/
+			mAdvertisements.push_back(views::AdvertisementData{.Address = adv.Address, .Name = adv.Name, .RSSI = adv.RSSI});
 		}
 		if (mInRangeRssi != mScanner.inRangeThreshold()) {
 			mScanner.setInRangeThreshold(mInRangeRssi);
@@ -49,6 +29,10 @@ namespace logic
 		if (mOutOfRangeTimeout != mScanner.outOfRangeTimeoutSeconds()) {
 			mScanner.setOutOfRangeTimeoutSeconds(mOutOfRangeTimeout);
 			mOutOfRangeTimeout = mScanner.outOfRangeTimeoutSeconds();
+		}
+		mConnectedDevices.clear();
+		for (const auto& device : mDevicesModel.devices() | std::views::values) {
+			mConnectedDevices.push_back(device.name() + (device.isConnected() ? " Connected" : " Disconnected"));
 		}
 	}
 
@@ -74,21 +58,21 @@ namespace logic
 
 	void BleConfigurationViewModel::onConnectButtonClicked()
 	{
-
+		mDevicesModel.connectDevice(mSelectedAdvertisement->Address);
 	}
 
 	bool BleConfigurationViewModel::isConnectButtonEnabled() const noexcept
 	{
-		return false;
+		return mSelectedAdvertisement.has_value();
 	}
 
 	void BleConfigurationViewModel::onDisconnectButtonClicked()
 	{
-
+		//mDevicesModel.disconnectDevice(mConnectedDevices[mSelectedConnected]);
 	}
 
 	bool BleConfigurationViewModel::isDisconnectButtonEnabled() const noexcept
 	{
-		return false;
+		return mSelectedConnected.has_value();
 	}
 }

@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\src\logic\models\connected_ble_devices_model.hpp" />
     <ClInclude Include="..\..\..\src\logic\models\data_source_model.hpp" />
     <ClInclude Include="..\..\..\src\logic\models\opened_ports_model.hpp" />
     <ClInclude Include="..\..\..\src\logic\models\uart_signal_source.hpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="..\..\..\src\logic\viewmodels\spectrum_viewmodel.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\src\logic\models\connected_ble_devices_model.cpp" />
     <ClCompile Include="..\..\..\src\logic\models\opened_ports_model.cpp" />
     <ClCompile Include="..\..\..\src\logic\models\uart_signal_source.cpp" />
     <ClCompile Include="..\..\..\src\logic\viewmodels\app_menu_bar_viewmodel.cpp" />
