@@ -6,7 +6,7 @@ namespace
 {
 	void ListBox(const char* text, const std::span<const std::string>& elements, std::optional<size_t>& selected)
 	{
-		if (ImGui::BeginListBox(text, ImVec2{0.0f, ImGui::GetTextLineHeightWithSpacing() * 3 * 5 }))
+		if (ImGui::BeginListBox(text, ImVec2{0.0f, ((ImGui::GetTextLineHeight() + 2 ) * 3 + 1) * 4}))
 		{
 			for (size_t n = 0; n < elements.size(); n++)
 			{
@@ -42,6 +42,26 @@ namespace views
 				ImGui::EndDisabled();
 			}
 			ListBox("Advertising devices", mViewModel.advertisingDevices(), mViewModel.selectedAdvertisingDevice());
+			if (!mViewModel.isConnectButtonEnabled()) {
+				ImGui::BeginDisabled();
+			}
+			if (ImGui::Button("Connect")) {
+				mViewModel.onConnectButtonClicked();
+			}
+			if (!mViewModel.isConnectButtonEnabled()) {
+				ImGui::EndDisabled();
+			}
+			ImGui::SameLine();
+			if (!mViewModel.isDisconnectButtonEnabled()) {
+				ImGui::BeginDisabled();
+			}
+			if (ImGui::Button("Disconnect")) {
+				mViewModel.onDisconnectButtonClicked();
+			}
+			if (!mViewModel.isDisconnectButtonEnabled()) {
+				ImGui::EndDisabled();
+			}
+			ListBox("Connected devices", mViewModel.connectedDevices(), mViewModel.selectedConnectedDevice());
 		}
 		ImGui::End();
 	}

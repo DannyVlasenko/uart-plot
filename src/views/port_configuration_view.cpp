@@ -2,10 +2,12 @@
 
 #include "imgui.h"
 
+#include <functional>
+
 namespace 
 {
 
-	void ComboBox(const char *text, const std::span<const std::string>& elements, size_t& selected)
+	void ComboBox(const char *text, const std::span<const std::string>& elements, size_t& selected, std::function<void(size_t)> onSelected)
 	{
 		const char* preview = elements.empty() ? "" : elements[selected].c_str();
 		if (ImGui::BeginCombo(text, preview))
@@ -14,7 +16,10 @@ namespace
 			{
 				const bool is_selected = selected == n;
 				if (ImGui::Selectable(elements[n].c_str(), is_selected)) {
-					selected = n;
+					if (selected != n) {
+						selected = n;
+						onSelected(n);
+					}
 				}
 
 				if (is_selected) {
@@ -25,7 +30,7 @@ namespace
 		}
 	}
 
-	void ListBox(const char *text, const std::span<const std::string>& elements, std::optional<size_t>& selected)
+	void ListBox(const char *text, const std::span<const std::string>& elements, std::optional<size_t>& selected, std::function<void(size_t)> onSelected)
 	{
 		if (ImGui::BeginListBox(text))
 		{
@@ -33,7 +38,10 @@ namespace
 			{
 				const bool is_selected = selected == n;
 				if (ImGui::Selectable((elements[n]+"##"+text).c_str(), is_selected)) {
-					selected = n;
+					if (selected != n) {
+						selected = n;
+						onSelected(n);
+					}
 				}
 
 				if (is_selected) {
@@ -53,7 +61,7 @@ namespace views
 			if (ImGui::Button("Refresh")) {
 				mViewModel.onPortRefreshButtonClicked();
 			}
-			ListBox("Available ports", mViewModel.availablePorts(), mViewModel.selectedAvailablePort());
+			ListBox("Available ports", mViewModel.availablePorts(), mViewModel.selectedAvailablePort(),[](size_t){});
 			if (!mViewModel.portOpenEnabled())
 			{
 				ImGui::BeginDisabled();
@@ -78,22 +86,25 @@ namespace views
 			{
 				ImGui::EndDisabled();
 			}
-			ListBox("Opened ports", mViewModel.openedPorts(), mViewModel.selectedOpenedPort());
+			ListBox("Opened ports", mViewModel.openedPorts(), mViewModel.selectedOpenedPort(), [this](size_t) {
+				mViewModel.onReadParamsClicked();
+			});
 			if (!portControlsEnabled)
 			{
 				ImGui::BeginDisabled();
 			}
-			if (ImGui::Button("Read Params")) {
-				mViewModel.onReadParamsClicked();
-			}
-			ImGui::SameLine();
-			if (ImGui::Button("Write Params")) {
+			ComboBox("Bits per second", mViewModel.baudRatesList(), mViewModel.selectedBaudRate(), [this](size_t) {
+				mViewModel.onWriteParamsClicked();
+			});
+			if (ImGui::DragInt("Data bits", &mViewModel.dataBits(), 1, 6, 9)) {
 				mViewModel.onWriteParamsClicked();
 			}
-			ComboBox("Bits per second", mViewModel.baudRatesList(), mViewModel.selectedBaudRate());
-			ImGui::DragInt("Data bits", &mViewModel.dataBits(), 1, 6, 9);
-			ComboBox("Parity", mViewModel.paritiesList(), mViewModel.selectedParity());
-			ComboBox("Stop bits", mViewModel.stopBitsList(), mViewModel.selectedStopBits());
+			ComboBox("Parity", mViewModel.paritiesList(), mViewModel.selectedParity(), [this](size_t) {
+				mViewModel.onWriteParamsClicked();
+			});
+			ComboBox("Stop bits", mViewModel.stopBitsList(), mViewModel.selectedStopBits(), [this](size_t) {
+				mViewModel.onWriteParamsClicked();
+			});
 			if (!portControlsEnabled)
 			{
 				ImGui::EndDisabled();

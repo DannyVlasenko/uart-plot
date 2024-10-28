@@ -10,7 +10,7 @@ namespace ble
 	struct AdvertisementData
 	{
 		std::string Name;
-		std::string Address;
+		uint64_t Address;
 		int RSSI;
 		std::unordered_set<std::string> ServicesUuids;
 	};
@@ -31,6 +31,31 @@ namespace ble
 		int outOfRangeTimeoutSeconds() const;
 		void setOutOfRangeTimeoutSeconds(int timeout);
 		std::vector<AdvertisementData> activeAdvertisements() const;
+
+	private:
+		struct Impl;
+		std::unique_ptr<Impl> mImpl;
+	};
+
+	class GattService {
+	public:
+		struct Impl;
+		GattService(Impl*);
+		GattService(GattService&&) noexcept = default;
+		GattService& operator=(GattService&&) noexcept = default;
+		~GattService();
+		std::string uuid() const;
+	private:
+		std::unique_ptr<Impl> mImpl;
+	};
+
+	class GattDevice 
+	{
+	public:
+		GattDevice(uint64_t address);
+		~GattDevice();
+		bool isConnected() const;
+		std::vector<GattService> discoverServices() const;
 
 	private:
 		struct Impl;

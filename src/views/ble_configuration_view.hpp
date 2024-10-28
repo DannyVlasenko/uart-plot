@@ -20,6 +20,12 @@ namespace views
 		virtual [[nodiscard]] std::span<const std::string> advertisingDevices() const noexcept = 0;
 		virtual [[nodiscard]] std::optional<size_t>& selectedAdvertisingDevice() noexcept = 0;
 		virtual [[nodiscard]] const char* scanButtonText() const noexcept = 0;
+		virtual void onConnectButtonClicked() = 0;
+		virtual [[nodiscard]] bool isConnectButtonEnabled() const noexcept = 0;
+		virtual void onDisconnectButtonClicked() = 0;
+		virtual [[nodiscard]] bool isDisconnectButtonEnabled() const noexcept = 0;
+		virtual [[nodiscard]] std::span<const std::string> connectedDevices() const noexcept = 0;
+		virtual [[nodiscard]] std::optional<size_t>& selectedConnectedDevice() noexcept = 0;
 	};
 
 	class BleConfigurationView final : public IView 
