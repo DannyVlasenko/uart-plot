@@ -58,7 +58,8 @@ namespace ble
 		~GattDevice();
 		bool isConnected() const;
 		[[nodiscard]] std::string name() const;
-		std::vector<GattService> discoverServices() const;
+		[[nodiscard]] uint64_t address() const;
+		[[nodiscard]] std::vector<GattService> discoverServices() const;
 
 	private:
 		struct Impl;

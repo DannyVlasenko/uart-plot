@@ -31,7 +31,8 @@ namespace
 		return resultStream.str();
 	}
 
-	void ListBox(const char* text, const std::span<const views::AdvertisementData>& elements, std::optional<views::AdvertisementData>& selected)
+	template <typename Element>
+	void ListBox(const char* text, const std::span<const Element>& elements, std::optional<Element>& selected)
 	{
 		if (ImGui::BeginListBox(text, ImVec2{0.0f, ((ImGui::GetTextLineHeight() + 2 ) * 3 + 1) * 4}))
 		{
@@ -49,31 +50,17 @@ namespace
 			ImGui::EndListBox();
 		}
 	}
-
-	void ListBox(const char* text, const std::span<const std::string>& elements, std::optional<size_t>& selected)
-	{
-		if (ImGui::BeginListBox(text))
-		{
-			for (size_t n = 0; n < elements.size(); n++)
-			{
-				const bool is_selected = selected == n;
-				if (ImGui::Selectable((elements[n] + "##" + text).c_str(), is_selected)) {
-					selected = n;
-				}
-
-				if (is_selected) {
-					ImGui::SetItemDefaultFocus();
-				}
-			}
-			ImGui::EndListBox();
-		}
-	}
 }
 namespace views
 {
 	std::string to_string(const AdvertisementData& data)
 	{
 		return (data.Name.empty() ? "N/A" : data.Name) + "\nAddress: " + formatAddress(data.Address) + "\nRSSI: " + std::to_string(data.RSSI);
+	}
+
+	std::string to_string(const ConnectedDevice& device)
+	{
+		return (device.Name.empty() ? "N/A" : device.Name) + "\nAddress: " + formatAddress(device.Address) + "\n" + (device.InRange ? "In Range" : "Out of Range");
 	}
 
 	void BleConfigurationView::render() const

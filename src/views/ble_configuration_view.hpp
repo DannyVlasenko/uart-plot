@@ -22,6 +22,20 @@ namespace views
 		return lhs.Address == rhs.Address;
 	}
 
+	struct ConnectedDevice
+	{
+		uint64_t Address;
+		std::string Name;
+		bool InRange;
+	};
+
+	[[nodiscard]] std::string to_string(const ConnectedDevice& data);
+
+	inline [[nodiscard]] bool operator==(const ConnectedDevice& lhs, const ConnectedDevice& rhs) noexcept
+	{
+		return lhs.Address == rhs.Address;
+	}
+
 	class IBleConfigurationViewModel
 	{
 	public:
@@ -38,8 +52,8 @@ namespace views
 		virtual [[nodiscard]] bool isConnectButtonEnabled() const noexcept = 0;
 		virtual void onDisconnectButtonClicked() = 0;
 		virtual [[nodiscard]] bool isDisconnectButtonEnabled() const noexcept = 0;
-		virtual [[nodiscard]] std::span<const std::string> connectedDevices() const noexcept = 0;
-		virtual [[nodiscard]] std::optional<size_t>& selectedConnectedDevice() noexcept = 0;
+		virtual [[nodiscard]] std::span<const ConnectedDevice> connectedDevices() const noexcept = 0;
+		virtual [[nodiscard]] std::optional<ConnectedDevice>& selectedConnectedDevice() noexcept = 0;
 	};
 
 	class BleConfigurationView final : public IView 

@@ -11,13 +11,6 @@ namespace logic
 
 	void BleConfigurationViewModel::update()
 	{
-		mAdvertisements.clear();
-		for (const auto& adv : mScanner.activeAdvertisements()) {
-			/*if (mDevicesModel.devices().contains(adv.Address)) {
-				continue;
-			}*/
-			mAdvertisements.push_back(views::AdvertisementData{.Address = adv.Address, .Name = adv.Name, .RSSI = adv.RSSI});
-		}
 		if (mInRangeRssi != mScanner.inRangeThreshold()) {
 			mScanner.setInRangeThreshold(mInRangeRssi);
 			mInRangeRssi = mScanner.inRangeThreshold();
@@ -30,9 +23,15 @@ namespace logic
 			mScanner.setOutOfRangeTimeoutSeconds(mOutOfRangeTimeout);
 			mOutOfRangeTimeout = mScanner.outOfRangeTimeoutSeconds();
 		}
+
+		mAdvertisements.clear();
+		for (const auto& adv : mScanner.activeAdvertisements()) {
+			mAdvertisements.push_back(views::AdvertisementData{.Address = adv.Address, .Name = adv.Name, .RSSI = adv.RSSI});
+		}
+
 		mConnectedDevices.clear();
 		for (const auto& device : mDevicesModel.devices() | std::views::values) {
-			mConnectedDevices.push_back(device.name() + (device.isConnected() ? " Connected" : " Disconnected"));
+			mConnectedDevices.push_back(views::ConnectedDevice{ .Address = device.address(), .Name = device.name(), .InRange = device.isConnected() });
 		}
 	}
 
@@ -63,16 +62,16 @@ namespace logic
 
 	bool BleConfigurationViewModel::isConnectButtonEnabled() const noexcept
 	{
-		return mSelectedAdvertisement.has_value();
+		return mSelectedAdvertisement.has_value() && std::ranges::find(mAdvertisements, mSelectedAdvertisement.value()) != mAdvertisements.end();
 	}
 
 	void BleConfigurationViewModel::onDisconnectButtonClicked()
 	{
-		//mDevicesModel.disconnectDevice(mConnectedDevices[mSelectedConnected]);
+		mDevicesModel.disconnectDevice(mSelectedConnected->Address);
 	}
 
 	bool BleConfigurationViewModel::isDisconnectButtonEnabled() const noexcept
 	{
-		return mSelectedConnected.has_value();
+		return mSelectedConnected.has_value() && std::ranges::find(mConnectedDevices, mSelectedConnected.value()) != mConnectedDevices.end();
 	}
 }

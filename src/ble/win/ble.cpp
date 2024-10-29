@@ -221,6 +221,11 @@ namespace ble
 		return to_string(mImpl->mDevice.Name());
 	}
 
+	uint64_t GattDevice::address() const
+	{
+		return mImpl->mDevice.BluetoothAddress();
+	}
+
 	std::vector<GattService> GattDevice::discoverServices() const
 	{
 		std::promise<std::vector<GattService>> servicesPromise;
@@ -255,6 +260,5 @@ namespace ble
 					}
 				});
 		return futureResult.get();
-
 	}
 }

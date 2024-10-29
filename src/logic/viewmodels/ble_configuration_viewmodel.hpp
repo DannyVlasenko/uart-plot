@@ -53,12 +53,12 @@ namespace logic
 
 		[[nodiscard]] bool isDisconnectButtonEnabled() const noexcept override;
 
-		[[nodiscard]] std::span<const std::string> connectedDevices() const noexcept override
+		[[nodiscard]] std::span<const views::ConnectedDevice> connectedDevices() const noexcept override
 		{
 			return mConnectedDevices;
 		}
 
-		[[nodiscard]] std::optional<size_t>& selectedConnectedDevice() noexcept override
+		[[nodiscard]] std::optional<views::ConnectedDevice>& selectedConnectedDevice() noexcept override
 		{
 			return mSelectedConnected;
 		}
@@ -71,7 +71,7 @@ namespace logic
 		int mOutOfRangeTimeout{ 5 };
 		std::vector<views::AdvertisementData> mAdvertisements;
 		std::optional<views::AdvertisementData> mSelectedAdvertisement;
-		std::vector<std::string> mConnectedDevices;
-		std::optional<size_t> mSelectedConnected;
+		std::vector<views::ConnectedDevice> mConnectedDevices;
+		std::optional<views::ConnectedDevice> mSelectedConnected;
 	};
 }
