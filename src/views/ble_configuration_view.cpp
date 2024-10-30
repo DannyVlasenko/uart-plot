@@ -50,6 +50,18 @@ namespace
 			ImGui::EndListBox();
 		}
 	}
+
+	void DeviceServicesTree(const views::ConnectedDevice& device)
+	{
+		if (ImGui::TreeNode(device.Name.c_str())) {
+			for (const auto& service : device.Services) {
+				if (ImGui::TreeNode(service.UUID.c_str())) {
+					ImGui::TreePop();
+				}
+			}
+			ImGui::TreePop();
+		}
+	}
 }
 namespace views
 {
@@ -100,6 +112,9 @@ namespace views
 				ImGui::EndDisabled();
 			}
 			ListBox("Connected devices", mViewModel.connectedDevices(), mViewModel.selectedConnectedDevice());
+			if (mViewModel.selectedConnectedDevice().has_value()) {
+				DeviceServicesTree(*mViewModel.selectedConnectedDevice());
+			}
 		}
 		ImGui::End();
 	}

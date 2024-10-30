@@ -32,6 +32,11 @@ namespace logic
 		mConnectedDevices.clear();
 		for (const auto& device : mDevicesModel.devices() | std::views::values) {
 			mConnectedDevices.push_back(views::ConnectedDevice{ .Address = device.address(), .Name = device.name(), .InRange = device.isConnected() });
+			const auto services = device.discoverServices();
+			mConnectedDevices.back().Services.clear();
+			for (const auto& service : services) {
+				mConnectedDevices.back().Services.push_back(views::ConnectedDevice::Service{ service.uuid() });
+			}
 		}
 	}
 

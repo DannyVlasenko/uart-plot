@@ -31,11 +31,13 @@ namespace
 	{
 		std::stringstream resultStream;
 		resultStream << std::hex << std::uppercase;
-		resultStream << std::setfill('0') << std::setw(2);
-		resultStream << uuid.Data1 << "-";
-		resultStream << uuid.Data2 << "-";
-		resultStream << uuid.Data3 << "-";
-		for (auto b : uuid.Data4) resultStream << b;
+		resultStream << std::setfill('0') << std::setw(8) << uuid.Data1 << "-";
+		resultStream << std::setfill('0') << std::setw(4) << uuid.Data2 << "-";
+		resultStream << std::setfill('0') << std::setw(4) << uuid.Data3 << "-";
+		resultStream << std::setfill('0') << std::setw(2) << (uint16_t)uuid.Data4[0] << std::setfill('0') << std::setw(2) << (uint16_t)uuid.Data4[1] << "-";
+		resultStream << std::setfill('0') << std::setw(2) << (uint16_t)uuid.Data4[2] << std::setfill('0') << std::setw(2) << (uint16_t)uuid.Data4[3] << std::setfill('0') << std::setw(2)
+			<< (uint16_t)uuid.Data4[4] << std::setfill('0') << std::setw(2) << (uint16_t)uuid.Data4[5] << std::setfill('0') << std::setw(2) 
+			<< (uint16_t)uuid.Data4[6] << std::setfill('0') << std::setw(2) << (uint16_t)uuid.Data4[7];
 		return resultStream.str();
 	}
 

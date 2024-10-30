@@ -5,6 +5,7 @@
 #include <span>
 #include <string>
 #include <optional>
+#include <vector>
 
 namespace views
 {
@@ -24,9 +25,14 @@ namespace views
 
 	struct ConnectedDevice
 	{
+		struct Service 
+		{
+			std::string UUID;
+		};
 		uint64_t Address;
 		std::string Name;
 		bool InRange;
+		std::vector<Service> Services;
 	};
 
 	[[nodiscard]] std::string to_string(const ConnectedDevice& data);
