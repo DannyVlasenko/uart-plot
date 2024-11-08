@@ -15,8 +15,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uart", "uart\uart.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "logic", "logic\logic.vcxproj", "{B24BE752-B6FF-4F35-9963-122A4BB8DB38}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ble", "ble\ble.vcxproj", "{74F60E1F-A9B2-415A-BFF9-384AAF3A0774}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -47,10 +45,6 @@ Global
 		{B24BE752-B6FF-4F35-9963-122A4BB8DB38}.Debug|x64.Build.0 = Debug|x64
 		{B24BE752-B6FF-4F35-9963-122A4BB8DB38}.Release|x64.ActiveCfg = Release|x64
 		{B24BE752-B6FF-4F35-9963-122A4BB8DB38}.Release|x64.Build.0 = Release|x64
-		{74F60E1F-A9B2-415A-BFF9-384AAF3A0774}.Debug|x64.ActiveCfg = Debug|x64
-		{74F60E1F-A9B2-415A-BFF9-384AAF3A0774}.Debug|x64.Build.0 = Debug|x64
-		{74F60E1F-A9B2-415A-BFF9-384AAF3A0774}.Release|x64.ActiveCfg = Release|x64
-		{74F60E1F-A9B2-415A-BFF9-384AAF3A0774}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

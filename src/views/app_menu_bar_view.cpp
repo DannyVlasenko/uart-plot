@@ -10,14 +10,6 @@ void views::AppMenuBarView::render() const
             if (ImGui::MenuItem("Port Configuration Window", nullptr, mViewModel.portConfigurationChecked())) {
                 mViewModel.onPortConfigurationClicked();
             }
-            if (ImGui::BeginMenu("Bluetooth Devices")) {
-                if (ImGui::MenuItem("Device Selection Window", nullptr, mViewModel.bleConfigurationChecked())) {
-                    mViewModel.onBleConfigurationClicked();
-                }
-                ImGui::Separator();
-
-                ImGui::EndMenu();
-            }
             ImGui::Separator();
             if (ImGui::MenuItem("Add Signal Plot")) {
                 mViewModel.onNewSignalViewClicked();

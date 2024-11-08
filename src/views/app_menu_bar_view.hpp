@@ -13,8 +13,6 @@ namespace views
 		virtual ~IAppMenuBarViewModel() = default;
 		virtual bool portConfigurationChecked() = 0;
 		virtual void onPortConfigurationClicked() = 0;
-		virtual bool bleConfigurationChecked() = 0;
-		virtual void onBleConfigurationClicked() = 0;
 		virtual void onNewSignalViewClicked() = 0;
 		virtual void onNewSpectrumViewClicked() = 0;
 	};

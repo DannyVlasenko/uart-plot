@@ -14,8 +14,6 @@ namespace logic
 
 		bool portConfigurationChecked() override;
 		void onPortConfigurationClicked() override;
-		bool bleConfigurationChecked() override;
-		void onBleConfigurationClicked() override;
 		void onNewSignalViewClicked() override;
 		void onNewSpectrumViewClicked() override;
 

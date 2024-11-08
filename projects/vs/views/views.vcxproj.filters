@@ -36,7 +36,6 @@
     <ClCompile Include="..\..\..\src\views\app_menu_bar_view.cpp" />
     <ClCompile Include="..\..\..\src\views\signal_view.cpp" />
     <ClCompile Include="..\..\..\src\views\spectrum_view.cpp" />
-    <ClCompile Include="..\..\..\src\views\ble_configuration_view.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\src\views\app_ui.hpp" />
@@ -75,7 +74,6 @@
     <ClInclude Include="..\..\..\src\views\app_menu_bar_view.hpp" />
     <ClInclude Include="..\..\..\src\views\signal_view.hpp" />
     <ClInclude Include="..\..\..\src\views\spectrum_view.hpp" />
-    <ClInclude Include="..\..\..\src\views\ble_configuration_view.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="imgui">

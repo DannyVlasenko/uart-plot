@@ -2,7 +2,6 @@
 
 #include "views/app_ui.hpp"
 #include "views/port_configuration_view.hpp"
-#include "views/ble_configuration_view.hpp"
 #include "views/signal_view.hpp"
 #include "signal_viewmodel.hpp"
 
@@ -26,11 +25,10 @@ namespace logic
 	class DockAreaViewModel : public views::IDockAreaViewModel
 	{
 	public:
-		DockAreaViewModel(views::IPortConfigurationViewModel& portConfigViewModel, views::IBleConfigurationViewModel& bleConfigViewModel, OpenedPortsModel& portsModel, DataSourceModel& dataSourceModel):
+		DockAreaViewModel(views::IPortConfigurationViewModel& portConfigViewModel, OpenedPortsModel& portsModel, DataSourceModel& dataSourceModel):
 			mPortsModel(portsModel),
 			mDataSourceModel(dataSourceModel),
-			mPortConfigViewModel(portConfigViewModel),
-			mBleConfigViewModel(bleConfigViewModel)
+			mPortConfigViewModel(portConfigViewModel)
 		{}
 
 		std::span<const views::IView* const> views() const override {
@@ -52,9 +50,6 @@ namespace logic
 
 		void switchPortConfigViewVisibility();
 
-		[[nodiscard]]
-		bool bleConfigViewVisible() const noexcept;
-
 		void switchBleConfigViewVisibility();
 
 		void addSignalView();
@@ -65,11 +60,9 @@ namespace logic
 		OpenedPortsModel& mPortsModel;
 		DataSourceModel& mDataSourceModel;
 		views::IPortConfigurationViewModel& mPortConfigViewModel;
-		views::IBleConfigurationViewModel& mBleConfigViewModel;
 		std::vector<SignalViewModel> mSignalViewModels;
 		std::vector<SpectrumViewModel> mSpectrumViewModels;
 		std::optional<views::PortConfigurationView> mPortConfigView;
-		std::optional<views::BleConfigurationView> mBleConfigView;
 		std::vector<views::SignalView> mSignalViews;
 		std::vector<views::SpectrumView> mSpectrumViews;
 		std::vector<const views::IView*> mViews;

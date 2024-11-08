@@ -33,12 +33,6 @@
     <ClInclude Include="..\..\..\src\logic\viewmodels\spectrum_viewmodel.hpp">
       <Filter>viewmodels</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\src\logic\viewmodels\ble_configuration_viewmodel.hpp">
-      <Filter>viewmodels</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\src\logic\models\connected_ble_devices_model.hpp">
-      <Filter>models</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\logic\viewmodels\port_configuration_viewmodel.cpp">
@@ -61,12 +55,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\logic\viewmodels\spectrum_viewmodel.cpp">
       <Filter>viewmodels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\logic\viewmodels\ble_configuration_viewmodel.cpp">
-      <Filter>viewmodels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\logic\models\connected_ble_devices_model.cpp">
-      <Filter>models</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

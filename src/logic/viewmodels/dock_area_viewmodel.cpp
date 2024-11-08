@@ -20,19 +20,8 @@ namespace logic
 		updateViewList();
 	}
 
-	bool DockAreaViewModel::bleConfigViewVisible() const noexcept
-	{
-		return mBleConfigView.has_value();
-	}
-
 	void DockAreaViewModel::switchBleConfigViewVisibility()
 	{
-		if (mBleConfigView.has_value()) {
-			mBleConfigView.reset();
-		}
-		else {
-			mBleConfigView.emplace(mBleConfigViewModel);
-		}
 		updateViewList();
 	}
 
@@ -53,9 +42,6 @@ namespace logic
 		mViews.clear();
 		if (mPortConfigView.has_value()) {
 			mViews.push_back(&mPortConfigView.value());
-		}
-		if (mBleConfigView.has_value()) {
-			mViews.push_back(&mBleConfigView.value());
 		}
 		for (const auto& signalView : mSignalViews) {
 			mViews.push_back(&signalView);
